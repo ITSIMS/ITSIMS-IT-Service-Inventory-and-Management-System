@@ -13,13 +13,13 @@
 
 ## 2. Структура имени файла
 
-```php
+```plaintext
 <project_prefix>_<content_type>_<short_description>[_v#][_YYYYMMDD].<extension>
 ```
 
 где:
 
-- `project_prefix` — сокращение проекта (например, `RTS`);
+- `project_prefix` — сокращение проекта (`ITSIMS`);
 - `content_type` — тип документа (например, `report`, `diagram`, `spec`);
 - `short_description` — краткое описание содержимого;
 - `_v#` — версия (необязательно);
@@ -48,14 +48,14 @@ ITSIMS_component_question_editor.tsx
 Проверить, что каждое имя соответствует шаблону.
 Если нет — переименовать вручную или через Git-команду:
 
- ```bash
-    git mv old_file_name.ext new_file_name.ext
-    ```
+```bash
+git mv old_file_name.ext new_file_name.ext
+```
 
 После переименования — сделать коммит с комментарием:
 
 ```bash
-    git commit -m "chore: rename files according to naming rules"
-    ```
+git commit -m "chore: rename files according to naming rules"
+```
 
 Проверить, что в репозитории нет дублирующихся или противоречащих имён.
