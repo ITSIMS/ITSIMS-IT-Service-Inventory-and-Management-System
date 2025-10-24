@@ -1,0 +1,12 @@
+\usepackage{fvextra}
+
+% Enable line breaking in code blocks
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  breaklines=true,
+  breaksymbol=\small\ensuremath{\hookrightarrow},
+  commandchars=\\\{\}
+}
+
+% Handle inline code wrapping
+\let\oldtexttt\texttt
+\renewcommand{\texttt}[1]{\hspace{0pt}\oldtexttt{\allowbreak #1}}

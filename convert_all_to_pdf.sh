@@ -24,6 +24,9 @@ convert_markdown_to_pdf() {
     
     pandoc "$input_file" -o "$output_file" \
         --pdf-engine=xelatex \
+        -H listings-setup.tex \
+        --lua-filter=default_table_width.lua \
+        --wrap=auto \
         --variable mainfont="Arial" \
         --variable monofont="Courier New" \
         --variable fontsize=12pt \
