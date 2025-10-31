@@ -20,7 +20,7 @@ pandoc "$INPUT_FILE" -o "$OUTPUT_FILE" \
   --wrap=auto \
   --variable mainfont="Arial" \
   --variable monofont="Courier New" \
-  --variable fontsize=12pt \
+  --variable fontsize=14pt \
   --variable geometry:margin=2cm \
   --variable lang=ru
 

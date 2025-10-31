@@ -29,7 +29,7 @@ convert_markdown_to_pdf() {
         --wrap=auto \
         --variable mainfont="Arial" \
         --variable monofont="Courier New" \
-        --variable fontsize=12pt \
+        --variable fontsize=14pt \
         --variable geometry:margin=2cm \
         --variable lang=ru
     
