@@ -3,7 +3,8 @@
 # Скрипт для конвертации всех Markdown файлов в PDF с сохранением структуры проекта
 # Исключает папку ТПКС согласно .gitignore и папку печати
 
-PROJECT_ROOT="/Users/gregorykogan/Desktop/ITSIMS-IT-Service-Inventory-and-Management-System"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 OUTPUT_DIR="$PROJECT_ROOT/печать"
 
 # Функция для создания директории
@@ -24,8 +25,8 @@ convert_markdown_to_pdf() {
     
     pandoc "$input_file" -o "$output_file" \
         --pdf-engine=xelatex \
-        -H listings-setup.tex \
-        --lua-filter=default_table_width.lua \
+        -H "$SCRIPT_DIR/listings-setup.tex" \
+        --lua-filter="$SCRIPT_DIR/default_table_width.lua" \
         --wrap=auto \
         --variable mainfont="Arial" \
         --variable monofont="Courier New" \

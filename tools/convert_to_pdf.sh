@@ -11,12 +11,13 @@ if [ ! -f "$INPUT_FILE" ]; then
     exit 1
 fi
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Конвертация $INPUT_FILE в $OUTPUT_FILE..."
 
 pandoc "$INPUT_FILE" -o "$OUTPUT_FILE" \
   --pdf-engine=xelatex \
-  -H listings-setup.tex \
-  --lua-filter=default_table_width.lua \
+  -H "$SCRIPT_DIR/listings-setup.tex" \
+  --lua-filter="$SCRIPT_DIR/default_table_width.lua" \
   --wrap=auto \
   --variable mainfont="Arial" \
   --variable monofont="Courier New" \
