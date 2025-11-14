@@ -71,31 +71,31 @@ pandoc ITSIMS_spec_technical.md -o ITSIMS_spec_technical.pdf \
 
 ---
 
-## 3. Скрипты автоматической конвертации
+## 3. Скрипты автоматической подготовки к печати
 
-### 3.1 Конвертация одного файла
+### 3.1 Подготовка одного файла к печати
 
 ```bash
 # Auto naming
-./convert_to_pdf.sh ITSIMS_spec_technical.md
+./prepare_for_print.sh ITSIMS_spec_technical.md
 
 # Manual naming
-./convert_to_pdf.sh ITSIMS_spec_technical.md technical_spec.pdf
+./prepare_for_print.sh ITSIMS_spec_technical.md technical_spec.pdf
 ```
 
-### 3.2 Конвертация всех файлов проекта
+### 3.2 Подготовка всех файлов проекта к печати
 
 ```bash
-./convert_all_to_pdf.sh
+./prepare_all_for_print.sh
 ```
 
-**Описание скрипта `convert_all_to_pdf.sh`:**
+**Описание скрипта `prepare_all_for_print.sh`:**
 
 - Автоматически находит все `.md` файлы в проекте
-- Конвертирует их в PDF с настройками ITSIMS
-- Сохраняет структуру папок в директории `/печать`
+- Подготавливает их к печати (конвертирует в PDF с настройками ITSIMS)
+- Сохраняет структуру папок в директории `/print`
 - Копирует существующие PDF файлы
-- Избегает рекурсии с папкой печати
+- Избегает рекурсии с папкой print
 
 ---
 

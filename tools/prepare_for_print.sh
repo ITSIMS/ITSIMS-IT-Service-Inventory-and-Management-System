@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Скрипт конвертации Markdown в PDF для ITSIMS
-# Использование: ./convert_to_pdf.sh input.md [output.pdf]
+# Скрипт подготовки документа к печати для ITSIMS
+# Конвертирует Markdown файл в PDF с настройками для печати
+# Использование: ./prepare_for_print.sh input.md [output.pdf]
 
 INPUT_FILE="$1"
 
@@ -21,7 +22,7 @@ if [ ! -f "$INPUT_FILE" ]; then
     echo "Ошибка: Файл $INPUT_FILE не найден"
     exit 1
 fi
-echo "Конвертация $INPUT_FILE в $OUTPUT_FILE..."
+echo "🖨️  Подготовка к печати: $INPUT_FILE -> $OUTPUT_FILE..."
 
 pandoc "$INPUT_FILE" -o "$OUTPUT_FILE" \
   --pdf-engine=xelatex \
@@ -35,8 +36,9 @@ pandoc "$INPUT_FILE" -o "$OUTPUT_FILE" \
   --variable lang=ru
 
 if [ $? -eq 0 ]; then
-    echo "✅ Конвертация завершена успешно: $OUTPUT_FILE"
+    echo "✅ Документ подготовлен к печати: $OUTPUT_FILE"
 else
-    echo "❌ Ошибка при конвертации"
+    echo "❌ Ошибка при подготовке документа к печати"
     exit 1
 fi
+

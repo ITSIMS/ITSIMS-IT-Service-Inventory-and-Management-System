@@ -30,13 +30,13 @@ cd docs/tech_spec/
 ls -la *.md
 ```
 
-### Шаг 2: Конвертация в PDF
+### Шаг 2: Подготовка к печати
 
 ```bash
-# Использовать готовый скрипт для конвертации
-./convert_to_pdf.sh ITSIMS_spec_technical.md
-./convert_to_pdf.sh ITSIMS_rules_spec_formatting.md
-./convert_to_pdf.sh ITSIMS_decision_document_format.md
+# Использовать готовый скрипт для подготовки к печати
+./prepare_for_print.sh ITSIMS_spec_technical.md
+./prepare_for_print.sh ITSIMS_rules_spec_formatting.md
+./prepare_for_print.sh ITSIMS_decision_document_format.md
 # ... и так далее для всех .md файлов
 ```
 
