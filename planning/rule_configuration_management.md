@@ -77,10 +77,12 @@ ROOT/
 │
 ├── planning/                           # Планирование, стандарты, шаблоны и процессы
 │   ├── rule_configuration_management.md # План конфигурационного управления
-│   ├── standards/                       # Регламенты и правила
-│   │   ├── formatting/                  # Правила форматирования и оформления
-│   │   └── printing/                     # Правила подготовки к печати
-│   └── templates/                       # Шаблоны документов (например, ТЗ)
+│   └── formatting/                     # Стандарты форматирования и шаблоны
+│       ├── unified_document_format.md  # Единый формат документов
+│       ├── decision_document_format.md # Решение о формате документов
+│       ├── spec/                       # Правила и шаблоны для ТЗ
+│       ├── formal_inspection/          # Шаблоны для формальных инспекций
+│       └── printing/                    # Правила подготовки к печати
 │
 ├── deliverables/                        # Готовые артефакты проекта
 │   ├── specs/
@@ -99,8 +101,9 @@ ROOT/
 
 ### 3.1 `planning/`
 - Содержит материалы, управляющие проектом: план конфигурационного управления, стандарты и шаблоны.
-- Рекомендуемая структура уже закреплена: `rule_configuration_management.md` в корне, `standards/`, `templates/`.
-- Внутри `standards/` разделяйте правила по тематике (например, `formatting/`, `printing/`).
+- Рекомендуемая структура уже закреплена: `rule_configuration_management.md` в корне, все остальные стандарты и шаблоны в папке `formatting/`.
+- Внутри `formatting/` размещаются общие стандарты (`unified_document_format.md`, `decision_document_format.md`) и папки для конкретных типов документов (`spec/`, `formal_inspection/`), а также правила подготовки к печати (`printing/`).
+- Правила и шаблоны для конкретных типов документов группируются в соответствующих папках (например, `formatting/spec/` содержит правила оформления и шаблон ТЗ).
 - Не создавайте чрезмерную глубину: если в каталоге 2–3 файла, держите их на одном уровне.
 
 ### 3.2 `deliverables/`
@@ -142,12 +145,12 @@ ROOT/
 | ----------------------------- | ------------------------------------------- | -------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
 | spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [deliverables/specs/tech_spec](../deliverables/specs/tech_spec)                                                 |
 | rule configuration management | План конфигурационного управления           | rule     | Носов А.А.         | [planning/rule_configuration_management.md](./rule_configuration_management.md)                                 |
-| spec technical template       | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [planning/templates/spec_technical_template.md](./templates/spec_technical_template.md)                         |
-| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [planning/standards/formatting/decision_document_format.md](./standards/formatting/decision_document_format.md) |
+| spec technical template       | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [planning/formatting/spec/spec_technical_template.md](./formatting/spec/spec_technical_template.md)             |
+| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [planning/formatting/decision_document_format.md](./formatting/decision_document_format.md)                         |
 | rule file naming              | Правила наименования документов             | rule     | Гречко И. В.       | [раздел 4.1](#41-полный-текст-правил-наименования)                                                              |
 | rule repository structure     | Правила структурирования репозитория        | rule     | Гречко И. В.       | [раздел 2.1](#21-правила-структуры-репозитория-полный-текст)                                                    |
 | diagram spec lifetime         | Диаграмма жизненного цикла ТЗ               | diagram  | Ловков К. И.       | Включено в план КУ                                                                                              |
-| rules spec formatting         | Правила оформления ТЗ                       | rule     |                    | [planning/standards/formatting/rules_spec_formatting.md](./standards/formatting/rules_spec_formatting.md)       |
+| rules spec formatting         | Правила оформления ТЗ                       | rule     |                    | [planning/formatting/spec/rules_spec_formatting.md](./formatting/spec/rules_spec_formatting.md)                     |
 
 ## 4\. Политика идентификации и именования
 

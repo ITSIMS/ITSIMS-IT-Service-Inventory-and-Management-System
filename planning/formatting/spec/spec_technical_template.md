@@ -138,5 +138,5 @@
 1. Сохраните копию с именем согласно правилам проекта
 2. Замените все `[...]` на реальные данные
 3. Убедитесь, что все требования начинаются с "Система должна..."
-4. Проверьте по чеклисту из [`planning/standards/formatting/rules_spec_formatting.md`](../standards/formatting/rules_spec_formatting.md)
+4. Проверьте по чеклисту из [`rules_spec_formatting.md`](./rules_spec_formatting.md)
 5. Сконвертируйте в PDF при необходимости

@@ -12,10 +12,12 @@ ITSIMS - это система для централизованного учё�
 
 - `planning/` — планирование и регламенты
   - `rule_configuration_management.md` — план конфигурационного управления
-  - `standards/` — стандарты и правила
-    - `formatting/` — правила форматирования и оформления
+  - `formatting/` — стандарты форматирования и шаблоны
+    - `unified_document_format.md` — единый формат документов
+    - `decision_document_format.md` — решение о формате документов
+    - `spec/` — правила и шаблоны для ТЗ
+    - `formal_inspection/` — шаблоны для формальных инспекций
     - `printing/` — правила подготовки к печати
-  - `templates/` — шаблоны документов
 - `deliverables/` — готовые результаты
   - `specs/tech_spec/` — ТЗ, Технические спецификации
   - `requirements/` — Системные требования и др.
@@ -40,10 +42,12 @@ ITSIMS - это система для централизованного учё�
 - Системные требования (MD): `deliverables/requirements/spec_requirements.md`
 - Системные требования (PDF): `deliverables/requirements/spec_system_requirements.pdf`
 - План конфигурационного управления: `planning/rule_configuration_management.md`
-- Шаблон ТЗ: `planning/templates/spec_technical_template.md`
-- Правила оформления: `planning/standards/formatting/rules_spec_formatting.md`
-- Единый формат документов: `planning/standards/formatting/unified_document_format.md`
-- Руководство по конвертации в PDF: `planning/standards/printing/markdown_to_pdf_guide.md`
+- Единый формат документов: `planning/formatting/unified_document_format.md`
+- Решение о формате документов: `planning/formatting/decision_document_format.md`
+- Шаблон ТЗ: `planning/formatting/spec/spec_technical_template.md`
+- Правила оформления ТЗ: `planning/formatting/spec/rules_spec_formatting.md`
+- Шаблон формальной инспекции: `planning/formatting/formal_inspection/formal_inspection_report_template.pdf`
+- Руководство по конвертации в PDF: `planning/formatting/printing/markdown_to_pdf_guide.md`
 
 ## Контакты
 
