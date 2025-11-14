@@ -4,14 +4,23 @@
 # Использование: ./convert_to_pdf.sh input.md [output.pdf]
 
 INPUT_FILE="$1"
-OUTPUT_FILE="${2:-${INPUT_FILE%.*}.pdf}"
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PRINT_DIR="$PROJECT_ROOT/print"
+
+# Если выходной файл не указан, сохраняем PDF в корневую папку print
+if [ -z "$2" ]; then
+    mkdir -p "$PRINT_DIR"
+    OUTPUT_FILE="$PRINT_DIR/$(basename "${INPUT_FILE%.*}").pdf"
+else
+    OUTPUT_FILE="$2"
+fi
 
 if [ ! -f "$INPUT_FILE" ]; then
     echo "Ошибка: Файл $INPUT_FILE не найден"
     exit 1
 fi
-
-SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 echo "Конвертация $INPUT_FILE в $OUTPUT_FILE..."
 
 pandoc "$INPUT_FILE" -o "$OUTPUT_FILE" \
