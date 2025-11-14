@@ -85,10 +85,10 @@ ROOT/
 │       └── printing/                    # Правила подготовки к печати
 │
 ├── deliverables/                        # Готовые артефакты проекта
-│   ├── specs/
-│   │   └── tech_spec/                   # ТЗ/технические спецификации
-│   ├── requirements/                    # Системные требования (MD/PDF)
-│   └── code/                            # Исходный код системы
+│   ├── spec_technical.md                # ТЗ/техническая спецификация
+│   └── spec_system_requirements.md      # Системные требования
+│
+├── validations/                         # Отчеты о верификации и формальных инспекциях
 │
 ├── tools/                               # Скрипты и ресурсы конвертации/сборки
 │
@@ -108,13 +108,16 @@ ROOT/
 
 ### 3.2 `deliverables/`
 - Содержит готовые, согласованные артефакты:
-    - `specs/tech_spec/` — ТЗ/технические спецификации;
-    - `requirements/` — системные требования (в т.ч. экспорт в PDF);
-    - `code/` — исходный код системы.
+    - `spec_technical.md` — ТЗ/техническая спецификация;
+    - `spec_system_requirements.md` — системные требования.
 - Для рабочих версий документов используйте ветки/PR; в `deliverables/` попадают утверждённые версии.
-- Именование файлов должно быть осмысленным и стабильным (например, `spec_technical.md`, `spec_system_requirements.pdf`).
+- Именование файлов должно быть осмысленным и стабильным (например, `spec_technical.md`, `spec_system_requirements.md`).
 
-### 3.3 `tools/`
+### 3.3 `validations/`
+- Содержит отчеты о верификации и формальных инспекциях документов проекта.
+- Отчеты хранятся в формате PDF с датированными именами файлов.
+
+### 3.4 `tools/`
 - Содержит скрипты и ресурсы для сборки/конвертации (например, Pandoc/LaTeX ресурсы).
 - Скрипты должны работать из любой текущей директории, использовать относительные пути от расположения скрипта.
 - Не являются частью проекта, используются как впомогательный инструмент
@@ -143,7 +146,7 @@ ROOT/
 
 | **CI ID**                     | **Название КЕ**                             | **Тип**  | **Владелец (ФИО)** | **Хранилище / путь**                                                                                            |
 | ----------------------------- | ------------------------------------------- | -------- | ------------------ | --------------------------------------------------------------------------------------------------------------- |
-| spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [deliverables/specs/tech_spec](../deliverables/specs/tech_spec)                                                 |
+| spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [deliverables/spec_technical.md](../deliverables/spec_technical.md)                                             |
 | rule configuration management | План конфигурационного управления           | rule     | Носов А.А.         | [planning/rule_configuration_management.md](./rule_configuration_management.md)                                 |
 | spec technical template       | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [planning/formatting/spec/spec_technical_template.md](./formatting/spec/spec_technical_template.md)             |
 | decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [planning/formatting/decision_document_format.md](./formatting/decision_document_format.md)                         |
