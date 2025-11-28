@@ -7,5 +7,7 @@
 /ТПКС
 
 # Print
-/печать
 /print
+
+# Cursor
+.cursor
