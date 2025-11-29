@@ -5,7 +5,7 @@
 # Исключает папку ТПКС согласно .gitignore и папку print
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 OUTPUT_DIR="$PROJECT_ROOT/print"
 
 # Функция для создания директории

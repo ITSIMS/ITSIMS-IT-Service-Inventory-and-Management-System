@@ -7,7 +7,7 @@
 INPUT_FILE="$1"
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 PRINT_DIR="$PROJECT_ROOT/print"
 
 # Если выходной файл не указан, сохраняем PDF в корневую папку print
