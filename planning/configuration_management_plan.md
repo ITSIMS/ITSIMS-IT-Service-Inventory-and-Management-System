@@ -156,16 +156,16 @@ ROOT/
 
 Все дальнейшие указания пути хранения начинаются относительно корня ветки "main" указанного репозитория.
 
-| **CI ID**                     | **Название КЕ**                             | **Тип**  | **Владелец (ФИО)** | **Хранилище / путь**                                                                            |
-| ----------------------------- | ------------------------------------------- | -------- | ------------------ | ----------------------------------------------------------------------------------------------- |
-| spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [artifacts/1_technical.md](../artifacts/1_technical.md)                                         |
-| rule configuration management | План конфигурационного управления           | rule     | Носов А.А.         | [planning/configuration_management_plan.md](./configuration_management_plan.md)                 |
+| **CI ID**                     | **Название КЕ**                             | **Тип**  | **Владелец (ФИО)** | **Хранилище / путь**                                                                              |
+| ----------------------------- | ------------------------------------------- | -------- | ------------------ | ------------------------------------------------------------------------------------------------- |
+| spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [artifacts/1_technical.md](../artifacts/1_technical.md)                                           |
+| rule configuration management | План конфигурационного управления           | rule     | Носов А.А.         | [planning/configuration_management_plan.md](./configuration_management_plan.md)                   |
 | spec technical template       | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [artifacts/_formatting/1_technical_template.md](../artifacts/_formatting/1_technical_template.md) |
-| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [general_rules/decision_document_format.md](../general_rules/decision_document_format.md)       |
-| rule file naming              | Правила наименования документов             | rule     | Гречко И. В.       | [раздел 4.1](#41-полный-текст-правил-наименования)                                              |
-| rule repository structure     | Правила структурирования репозитория        | rule     | Гречко И. В.       | [раздел 2.1](#21-правила-структуры-репозитория-полный-текст)                                    |
-| diagram spec lifetime         | Диаграмма жизненного цикла ТЗ               | diagram  | Ловков К. И.       | Включено в план КУ                                                                              |
-| rules spec formatting         | Правила оформления ТЗ                       | rule     |                    | [artifacts/_formatting/1_technical_rules.md](../artifacts/_formatting/1_technical_rules.md)     |
+| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [general_rules/decision_document_format.md](../general_rules/decision_document_format.md)         |
+| rule file naming              | Правила наименования документов             | rule     | Гречко И. В.       | [раздел 4.1](#41-полный-текст-правил-наименования)                                                |
+| rule repository structure     | Правила структурирования репозитория        | rule     | Гречко И. В.       | [раздел 2.1](#21-правила-структуры-репозитория-полный-текст)                                      |
+| diagram spec lifetime         | Диаграмма жизненного цикла ТЗ               | diagram  | Ловков К. И.       | Включено в план КУ                                                                                |
+| rules spec formatting         | Правила оформления ТЗ                       | rule     |                    | [artifacts/_formatting/1_technical_rules.md](../artifacts/_formatting/1_technical_rules.md)       |
 
 ## 4\. Политика идентификации и именования
 
