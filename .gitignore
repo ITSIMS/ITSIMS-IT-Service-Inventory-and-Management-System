@@ -11,3 +11,6 @@
 
 # Cursor
 .cursor
+
+# Commit tools (private)
+tools/commit_as.sh
