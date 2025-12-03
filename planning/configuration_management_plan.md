@@ -75,7 +75,7 @@
 ```
 ROOT/
 │
-├── general_rules/                     # Общие правила и форматы документов
+├── project_rules/                     # Общие правила и форматы документов
 │   ├── unified_document_format.md     # Единый формат документов
 │   └── decision_document_format.md    # Решение о формате документов
 │
@@ -110,7 +110,7 @@ ROOT/
 - Содержит материалы, управляющие проектом: план конфигурационного управления.
 - Не создавайте чрезмерную глубину: если в каталоге 2–3 файла, держите их на одном уровне.
 
-##### 3.2 `general_rules/`
+##### 3.2 `project_rules/`
 - Содержит общие правила и стандарты форматирования документов проекта.
 - Размещаются общие стандарты (`unified_document_format.md`, `decision_document_format.md`).
 
@@ -161,7 +161,7 @@ ROOT/
 | spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [artifacts/1_technical.md](../artifacts/1_technical.md)                                           |
 | rule configuration management | План конфигурационного управления           | rule     | Носов А.А.         | [planning/configuration_management_plan.md](./configuration_management_plan.md)                   |
 | spec technical template       | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [artifacts/_formatting/1_technical_template.md](../artifacts/_formatting/1_technical_template.md) |
-| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [general_rules/decision_document_format.md](../general_rules/decision_document_format.md)         |
+| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [project_rules/decision_document_format.md](../project_rules/decision_document_format.md)         |
 | rule file naming              | Правила наименования документов             | rule     | Гречко И. В.       | [раздел 4.1](#41-полный-текст-правил-наименования)                                                |
 | rule repository structure     | Правила структурирования репозитория        | rule     | Гречко И. В.       | [раздел 2.1](#21-правила-структуры-репозитория-полный-текст)                                      |
 | diagram spec lifetime         | Диаграмма жизненного цикла ТЗ               | diagram  | Ловков К. И.       | Включено в план КУ                                                                                |
