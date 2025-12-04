@@ -14,17 +14,15 @@ ITSIMS — это система для централизованного уч�
 
 ### 📁 Основные директории
 
-- **[`project_rules/`](project_rules/)** — общие правила работы с проектом
-  - Правила именования, организации файлов, работы с Git
-  - Форматы и стандарты документации
+- **[`planning/`](planning/)** — планирование и правила работы с проектом
+  - [`configuration_management/`](planning/configuration_management/) — планы управления проектом
+  - [`repository/`](planning/repository/) — правила работы с Git, структура репозитория, правила именования
+  - [`formatting/`](planning/formatting/) — форматы и стандарты документации
   
 - **[`artifacts/`](artifacts/)** — конечные артефакты проекта
   - [`1_technical.md`](artifacts/1_technical.md) — техническое задание (ТЗ)
   - [`2_system_requirements.md`](artifacts/2_system_requirements.md) — требования к системе
   - [`_formatting/`](artifacts/_formatting/) — правила и шаблоны для артефактов
-  
-- **[`planning/`](planning/)** — планирующие документы
-  - [`configuration_management_plan.md`](planning/configuration_management_plan.md) — план конфигурационного управления
   
 - **[`validations/`](validations/)** — валидация и формальные инспекции
   - [`reports/`](validations/reports/) — отчеты проведенных инспекций
@@ -44,12 +42,12 @@ ITSIMS — это система для централизованного уч�
 
 ## Ключевые документы
 
-- **Общие правила работы с проектом**
-  - [unified_document_format.md](project_rules/unified_document_format.md) — единый формат документов
-  - [decision_document_format.md](project_rules/decision_document_format.md) — решение о формате документов
-
-- **План конфигурационного управления**
-  - [configuration_management_plan.md](planning/configuration_management_plan.md) — план конфигурационного управления
+- **Планирование и правила работы**
+  - [README](planning/README.md) — навигация по планам и правилам
+  - [configuration_management_plan.md](planning/configuration_management/configuration_management_plan.md) — план конфигурационного управления
+  - [git_workflow.md](planning/repository/git_workflow.md) — работа с Git
+  - [repository_structure.md](planning/repository/repository_structure.md) — структура репозитория
+  - [format_selection.md](planning/formatting/format_selection.md) — выбор формата документов
 
 - **Артефакты проекта**
   - [1_technical.md](artifacts/1_technical.md) — техническое задание (ТЗ)
