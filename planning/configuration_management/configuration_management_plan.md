@@ -75,19 +75,25 @@
 ```
 ROOT/
 │
-├── project_rules/                     # Общие правила и форматы документов
-│   ├── unified_document_format.md     # Единый формат документов
-│   └── decision_document_format.md    # Решение о формате документов
+├── planning/                                        # Планирование и правила работы с проектом
+│   ├── configuration_management/                    # Конфигурационное управление
+│   │   └── configuration_management_plan.md         # План конфигурационного управления
+│   ├── repository/                                  # Правила работы с репозиторием
+│   │   ├── git_workflow.md                          # Работа с Git
+│   │   ├── repository_structure.md                  # Структура репозитория
+│   │   └── naming_conventions.md                    # Правила именования
+│   └── formatting/                                  # Правила форматирования документов
+│       ├── document_structure.md                    # Структура документа
+│       ├── formatting_principles.md                 # Принципы оформления
+│       ├── format_selection.md                      # Выбор формата документа
+│       └── markdown_guide.md                        # Руководство по Markdown
 │
-├── artifacts/                          # Готовые артефакты проекта
-│   ├── 1_technical.md                  # ТЗ/техническая спецификация
-│   ├── 2_system_requirements.md        # Системные требования
-│   └── _formatting/                    # Правила и шаблоны для артефактов
-│       ├── 1_technical_rules.md        # Правила оформления ТЗ
-│       └── 1_technical_template.md     # Шаблон ТЗ
-│
-├── planning/                           # Планирование, стандарты, шаблоны и процессы
-│   └── configuration_management_plan.md # План конфигурационного управления
+├── artifacts/                                       # Готовые артефакты проекта
+│   ├── 1_technical.md                               # ТЗ/техническая спецификация
+│   ├── 2_system_requirements.md                     # Системные требования
+│   └── _formatting/                                 # Правила и шаблоны для артефактов
+│       ├── 1_technical_rules.md                     # Правила оформления ТЗ
+│       └── 1_technical_template.md                  # Шаблон ТЗ
 │
 ├── validations/                        # Отчеты о верификации и формальных инспекциях
 │   ├── formal_inspection_regulation.md # Регламент формальной инспекции
@@ -110,9 +116,12 @@ ROOT/
 - Содержит материалы, управляющие проектом: план конфигурационного управления.
 - Не создавайте чрезмерную глубину: если в каталоге 2–3 файла, держите их на одном уровне.
 
-##### 3.2 `project_rules/`
-- Содержит общие правила и стандарты форматирования документов проекта.
-- Размещаются общие стандарты (`unified_document_format.md`, `decision_document_format.md`).
+##### 3.2 `planning/`
+- Содержит планирующие документы и все правила работы с проектом:
+    - `configuration_management/` — планы управления (включая этот документ);
+    - `repository/` — правила работы с Git, структура репозитория, правила именования;
+    - `formatting/` — стандарты форматирования документов.
+- Здесь размещаются все регулирующие документы команды.
 
 ##### 3.3 `artifacts/`
 - Содержит готовые, согласованные артефакты:
@@ -161,7 +170,7 @@ ROOT/
 | spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [artifacts/1_technical.md](../artifacts/1_technical.md)                                           |
 | rule configuration management | План конфигурационного управления           | rule     | Носов А.А.         | [planning/configuration_management_plan.md](./configuration_management_plan.md)                   |
 | spec technical template       | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [artifacts/_formatting/1_technical_template.md](../artifacts/_formatting/1_technical_template.md) |
-| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [project_rules/decision_document_format.md](../project_rules/decision_document_format.md)         |
+| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [planning/formatting/format_selection.md](../formatting/format_selection.md)                      |
 | rule file naming              | Правила наименования документов             | rule     | Гречко И. В.       | [раздел 4.1](#41-полный-текст-правил-наименования)                                                |
 | rule repository structure     | Правила структурирования репозитория        | rule     | Гречко И. В.       | [раздел 2.1](#21-правила-структуры-репозитория-полный-текст)                                      |
 | diagram spec lifetime         | Диаграмма жизненного цикла ТЗ               | diagram  | Ловков К. И.       | Включено в план КУ                                                                                |
