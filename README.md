@@ -20,8 +20,9 @@ ITSIMS — это система для централизованного уч�
   - [`formatting/`](planning/formatting/) — форматы и стандарты документации
   
 - **[`artifacts/`](artifacts/)** — конечные артефакты проекта
-  - [`1_technical.md`](artifacts/1_technical.md) — техническое задание (ТЗ)
-  - [`2_system_requirements.md`](artifacts/2_system_requirements.md) — требования к системе
+  - [`1_technical_specification.md`](artifacts/1_technical_specification.md) — техническое задание (ТЗ)
+  - [`2_TS_to_SR.md`](artifacts/2_TS_to_SR.md) — трассировка между ТЗ и требованиями к системе
+  - [`3_system_requirements.md`](artifacts/3_system_requirements.md) — требования к системе
   - [`_formatting/`](artifacts/_formatting/) — правила и шаблоны для артефактов
   
 - **[`validations/`](validations/)** — валидация и формальные инспекции
@@ -50,9 +51,9 @@ ITSIMS — это система для централизованного уч�
   - [format_selection.md](planning/formatting/format_selection.md) — выбор формата документов
 
 - **Артефакты проекта**
-  - [1_technical.md](artifacts/1_technical.md) — техническое задание (ТЗ)
-  - [2_system_requirements.md](artifacts/2_system_requirements.md) — требования к системе
-  - [1_technical_template.md](artifacts/_formatting/1_technical_template.md) — шаблон технического задания
+  - [1_technical_specification.md](artifacts/1_technical_specification.md) — техническое задание (ТЗ)
+  - [3_system_requirements.md](artifacts/3_system_requirements.md) — требования к системе
+  - [1_technical_specification_template.md](1_technical_specification_template.md) — шаблон технического задания
   - [1_technical_rules.md](artifacts/_formatting/1_technical_rules.md) — правила оформления ТЗ
 
 - **Дополнительные инструменты**

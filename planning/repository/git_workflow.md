@@ -233,12 +233,12 @@ git branch  # Должна быть отметка * у твоей ветки
 # Например, работа над техническим заданием
 
 # Добавь изменения и закоммить
-git add artifacts/1_technical.md
+git add artifacts/1_technical_specification.md
 git commit -m "feat(spec): добавить раздел требований к API"
 git push origin task/2025-12-03_valkovets
 
 # Продолжай работу с регулярными коммитами
-git add artifacts/2_system_requirements.md
+git add artifacts/3_system_requirements.md
 git commit -m "feat(spec): создать документ системных требований"
 git push origin task/2025-12-03_valkovets
 ```
