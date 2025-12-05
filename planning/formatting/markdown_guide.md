@@ -79,7 +79,7 @@ _текст_
 
 **Примеры использования:**
 ```markdown
-Файл находится по пути `artifacts/1_technical.md`.
+Файл находится по пути `artifacts/1_technical_specification.md`.
 
 Выполните команду `git commit -m "feat: добавить функцию"`.
 
@@ -296,7 +296,7 @@ _текст_
 
 Задача описана в [2025-11-29_Koganovsky.md](../../task-tracker/2_in_progress/2025-11-29_Koganovsky.md)
 
-См. [Техническое задание](../../artifacts/1_technical.md)
+См. [Техническое задание](../../artifacts/1_technical_specification.md)
 ```
 
 **Правило:** Всегда используй относительные пути для файлов проекта.

@@ -25,12 +25,14 @@
 
 ```
 artifacts/
-├── README.md                   # Данный документ
-├── 1_technical.md              # Техническое задание (ТЗ)
-├── 2_system_requirements.md    # Требования к системе
-└── _formatting/                # Правила и шаблоны для артефактов
-    ├── 1_technical_rules.md    # Правила оформления ТЗ
-    └── 1_technical_template.md # Шаблон технического задания
+├── README.md                             # Данный документ
+├── 1_technical_specification.md          # Техническое задание (ТЗ)
+├── 2_system_requirements.md              # Требования к системе
+└── _formatting/                          # Правила и шаблоны для артефактов
+    ├── 1_technical_specification_rules.md    # Правила оформления ТЗ
+    ├── 2_system_requirements_rules.md        # Правила оформления SR
+    ├── 3_software_requirements_rules.md      # Правила оформления SWR
+    └── general_artifact_rules.md             # Общие правила оформления артефактов
 ```
 
 
@@ -42,9 +44,9 @@ artifacts/
 Файлы нумеруются префиксами `1_`, `2_`, `3_` для определения порядка:
 
 ```
-✅ 1_technical.md           # Первый документ - ТЗ
-✅ 2_system_requirements.md # Второй документ - требования
-✅ 3_architecture.md        # Третий документ (будущий)
+✅ 1_technical_specification.md # Первый документ - ТЗ
+✅ 2_system_requirements.md     # Второй документ - требования
+✅ 3_architecture.md            # Третий документ (будущий)
 ```
 
 Артефакты создаются последовательно, поэтому нумерация отражает эту последовательность.
@@ -54,12 +56,12 @@ artifacts/
 Версии документов отслеживаются через **Git**, а не через номера в именах файлов:
 
 ```
-✅ artifacts/1_technical.md
+✅ artifacts/1_technical_specification.md
    (история изменений в Git)
 
-❌ artifacts/1_technical_v1.md
-❌ artifacts/1_technical_v2.md
-❌ artifacts/1_technical_final.md
+❌ artifacts/1_technical_specification_v1.md
+❌ artifacts/1_technical_specification_v2.md
+❌ artifacts/1_technical_specification_final.md
 ```
 
 ### Служебные папки

@@ -89,7 +89,7 @@ ROOT/
 │       └── markdown_guide.md                        # Руководство по Markdown
 │
 ├── artifacts/                                       # Готовые артефакты проекта
-│   ├── 1_technical.md                               # ТЗ/техническая спецификация
+│   ├── 1_technical_specification.md                 # ТЗ/техническая спецификация
 │   ├── 2_system_requirements.md                     # Системные требования
 │   └── _formatting/                                 # Правила и шаблоны для артефактов
 │       ├── 1_technical_rules.md                     # Правила оформления ТЗ
@@ -125,7 +125,7 @@ ROOT/
 
 ##### 3.3 `artifacts/`
 - Содержит готовые, согласованные артефакты:
-    - `1_technical.md` — ТЗ/техническая спецификация;
+    - `1_technical_specification.md` — ТЗ/техническая спецификация;
     - `2_system_requirements.md` — системные требования.
 - Подпапка `_formatting/` содержит правила и шаблоны для конкретных типов артефактов.
 - Для рабочих версий документов используйте ветки/PR; в `artifacts/` попадают утверждённые версии.
@@ -165,16 +165,16 @@ ROOT/
 
 Все дальнейшие указания пути хранения начинаются относительно корня ветки "main" указанного репозитория.
 
-| **CI ID**                     | **Название КЕ**                             | **Тип**  | **Владелец (ФИО)** | **Хранилище / путь**                                                                              |
-| ----------------------------- | ------------------------------------------- | -------- | ------------------ | ------------------------------------------------------------------------------------------------- |
-| spec technical                | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [artifacts/1_technical.md](../artifacts/1_technical.md)                                           |
-| rule configuration management | План конфигурационного управления           | rule     | Носов А.А.         | [planning/configuration_management_plan.md](./configuration_management_plan.md)                   |
-| spec technical template       | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [artifacts/_formatting/1_technical_template.md](../artifacts/_formatting/1_technical_template.md) |
-| decision document format      | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [planning/formatting/format_selection.md](../formatting/format_selection.md)                      |
-| rule file naming              | Правила наименования документов             | rule     | Гречко И. В.       | [раздел 4.1](#41-полный-текст-правил-наименования)                                                |
-| rule repository structure     | Правила структурирования репозитория        | rule     | Гречко И. В.       | [раздел 2.1](#21-правила-структуры-репозитория-полный-текст)                                      |
-| diagram spec lifetime         | Диаграмма жизненного цикла ТЗ               | diagram  | Ловков К. И.       | Включено в план КУ                                                                                |
-| rules spec formatting         | Правила оформления ТЗ                       | rule     |                    | [artifacts/_formatting/1_technical_rules.md](../artifacts/_formatting/1_technical_rules.md)       |
+| **CI ID**                             | **Название КЕ**                             | **Тип**  | **Владелец (ФИО)** | **Хранилище / путь**                                                                                                          |
+| ------------------------------------- | ------------------------------------------- | -------- | ------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| spec technical_specification          | Техническое задание ITSIMS                  | spec     | Вальковец Д.И.     | [artifacts/1_technical_specification.md](../../artifacts/1_technical_specification.md)                                        |
+| rule configuration management         | План конфигурационного управления           | rule     | Носов А.А.         | [planning/configuration_management_plan.md](./configuration_management_plan.md)                                               |
+| spec technical_specification_template | Шаблон технического задания ITSIMS          | spec     | Когановский Г.И.   | [artifacts/_formatting/1_technical_specification_template.md](../artifacts/_formatting/1_technical_specification_template.md) |
+| decision document format              | Решение о формате документов с требованиями | decision | Когановский Г.И.   | [planning/formatting/format_selection.md](../formatting/format_selection.md)                                                  |
+| rule file naming                      | Правила наименования документов             | rule     | Гречко И. В.       | [раздел 4.1](#41-полный-текст-правил-наименования)                                                                            |
+| rule repository structure             | Правила структурирования репозитория        | rule     | Гречко И. В.       | [раздел 2.1](#21-правила-структуры-репозитория-полный-текст)                                                                  |
+| diagram spec lifetime                 | Диаграмма жизненного цикла ТЗ               | diagram  | Ловков К. И.       | Включено в план КУ                                                                                                            |
+| rules spec formatting                 | Правила оформления ТЗ                       | rule     |                    | [artifacts/_formatting/1_technical_rules.md](../artifacts/_formatting/1_technical_rules.md)                                   |
 
 ## 4\. Политика идентификации и именования
 
