@@ -238,7 +238,7 @@ git commit -m "feat(spec): добавить раздел требований к
 git push origin task/2025-12-03_valkovets
 
 # Продолжай работу с регулярными коммитами
-git add artifacts/2_system_requirements.md
+git add artifacts/3_system_requirements.md
 git commit -m "feat(spec): создать документ системных требований"
 git push origin task/2025-12-03_valkovets
 ```

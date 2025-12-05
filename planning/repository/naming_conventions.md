@@ -62,7 +62,8 @@
 | ----------------- | -------- | ------------------------------------------ |
 | **Все файлы**     | Латиница | `1_technical_specification.md`             |
 | **Файлы задач**   | Латиница | `2025-11-29_grechko.md`                    |
-| **Артефакты**     | Латиница | `2_system_requirements.md`                 |
+| **Артефакты**     | Латиница | `3_system_requirements.md`                 |
+| **Трассировка**   | Латиница | `2_TS_to_SR.md`                            |
 | **Папки**         | Латиница | `artifacts/`, `planning/`                  |
 | **Отчеты**        | Латиница | `2025-11-03_spec_technical_inspection.pdf` |
 
@@ -103,9 +104,11 @@
 **Примеры:**
 ```
 artifacts/
-├── 1_technical_specification.md # Первый по важности (ТЗ)
-├── 2_system_requirements.md     # Второй по важности (требования)
-└── 3_architecture.md           # Третий по важности (архитектура)
+├── 1_technical_specification.md # ТЗ
+├── 2_TS_to_SR.md                # Трассировка ТЗ ↔ Требования к системе
+├── 3_system_requirements.md     # Требования к системе
+├── 4_SR_to_SWR.md               # Трассировка Требования к системе ↔ ПО
+└── 5_software_requirements.md   # Требования к ПО
 
 task-tracker/
 ├── 1_sprint/                   # Спринт (первая стадия)
@@ -132,7 +135,8 @@ task-tracker/1_sprint/
 artifacts/
 ├── _formatting/                # Служебная папка с шаблонами
 ├── 1_technical_specification.md
-└── 2_system_requirements.md
+├── 2_TS_to_SR.md
+└── 3_system_requirements.md
 ```
 
 **Эффект:** Файлы и папки с `_` отображаются в начале списка, отделяя служебное от рабочего.
@@ -258,8 +262,10 @@ artifacts/
 **Примеры:**
 ```
 ✅ artifacts/1_technical_specification.md
-✅ artifacts/2_system_requirements.md
-✅ artifacts/3_architecture.md
+✅ artifacts/2_TS_to_SR.md
+✅ artifacts/3_system_requirements.md
+✅ artifacts/4_SR_to_SWR.md
+✅ artifacts/5_software_requirements.md
 ```
 
 ### 3.2 Файлы задач
