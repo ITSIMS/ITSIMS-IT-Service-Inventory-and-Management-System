@@ -134,9 +134,9 @@ ITSIMS/
 ❌ artifacts/1_technical_final_v2.md
 ```
 
-**Исключение:** Файлы в `validations/reports/` могут содержать версию в имени, так как это финальные снимки состояния:
+**Примечание:** Отчеты валидации хранятся в папках соответствующих артефактов:
 ```
-✅ validations/reports/2025-11-03_spec_technical_formal_inspection_report_v1.0.pdf
+✅ validations/1_technical_specification/2025-11-03_technical_specification.pdf
 ```
 
 ### 3.4 Расширения файлов
