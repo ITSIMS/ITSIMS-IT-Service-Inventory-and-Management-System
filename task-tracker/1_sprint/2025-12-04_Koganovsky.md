@@ -23,7 +23,7 @@ description: "Оценить возможность упрощения .tex фа
 Проанализировать существующие .tex файлы в папке `validations/` и определить оптимальный формат для протоколов формальных инспекций. На основе анализа создать правила оформления и шаблон.
 
 **Текущее состояние:**
-- В `validations/_formatting/` и `validations/reports/` есть .tex файлы с протоколами инспекций
+- В `validations/1_technical_specification/` есть .tex файлы с шаблонами инспекций
 - Файлы содержат громоздкие таблицы с критериями проверки
 - Неясно, можно ли адекватно перенести их в Markdown
 
@@ -38,8 +38,7 @@ description: "Оценить возможность упрощения .tex фа
 
 ### 1. Анализ существующих файлов
 
-- [ ] Изучить `validations/_formatting/spec_formal_inspection_template.tex`
-- [ ] Изучить `validations/reports/2025-11-03_spec_technical_formal_inspection_report_v1.0.tex`
+- [ ] Изучить `validations/1_technical_specification/_inspection_template.tex`
 - [ ] Оценить сложность таблиц и их объем
 - [ ] Определить, можно ли адекватно отобразить эти таблицы в Markdown
 
@@ -51,7 +50,7 @@ description: "Оценить возможность упрощения .tex фа
 
 ### 3. Создать правила оформления
 
-- [ ] Создать `validations/_formatting/formal_inspection_rules.md` (или `.tex`)
+- [ ] Создать `planning/formatting/formal_inspection_rules.md` (или `.tex`)
 - [ ] Добавить версионную таблицу
 - [ ] Описать структуру протокола формальной инспекции
 - [ ] Указать обязательные разделы документа
@@ -74,7 +73,6 @@ description: "Оценить возможность упрощения .tex фа
 
 ## Связанные документы
 
-- `validations/_formatting/spec_formal_inspection_template.tex` - существующий шаблон
-- `validations/reports/2025-11-03_spec_technical_formal_inspection_report_v1.0.tex` - пример отчета
-- `project_rules/unified_document_format.md` - общие правила оформления
+- `validations/1_technical_specification/_inspection_template.tex` - существующий шаблон
+- `planning/formatting/` - документы о форматировании
 
