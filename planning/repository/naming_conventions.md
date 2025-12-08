@@ -1,9 +1,10 @@
 # Правила именования в проекте ITSIMS
 
-| Дата       | Номер версии | Автор     | Ссылка на задачу                                                               | Комментарий                                   |
-| ---------- | ------------ | --------- | ------------------------------------------------------------------------------ | --------------------------------------------- |
-| 2025-12-04 | v1.0         | Гречко    | [2025-11-29_Grechko.md](../../task-tracker/3_done/2025-11-29_Grechko.md)       | Первая версия документа                       |
-| 2025-12-08 | v1.1.        | Зацепилин | [2025-12-03_Zatsepilin.md](../../task-tracker/3_done/2025-12-03_Zatsepilin.md) | Уточнение правил именования отчетов валидации |
+| Дата       | Номер версии | Автор       | Ссылка на задачу                                                                   | Комментарий                                   |
+| ---------- | ------------ | ----------- | ---------------------------------------------------------------------------------- | --------------------------------------------- |
+| 2025-12-08 | v1.2         | Когановский | [2025-12-04_Koganovsky.md](../../task-tracker/2_in_progress/2025-12-04_Koganovsky.md) | Переход на Markdown для инспекций             |
+| 2025-12-08 | v1.1         | Зацепилин   | [2025-12-03_Zatsepilin.md](../../task-tracker/3_done/2025-12-03_Zatsepilin.md)     | Уточнение правил именования отчетов валидации |
+| 2025-12-04 | v1.0         | Гречко      | [2025-11-29_Grechko.md](../../task-tracker/3_done/2025-11-29_Grechko.md)           | Первая версия документа                       |
 
 
 
@@ -294,19 +295,18 @@ artifacts/
 
 **Расположение:** `validations/<номер>_<артефакт>/`
 
-**Формат:** `<YYYY-MM-DD>_<артефакт>.<расширение>`
+**Формат:** `<YYYY-MM-DD>_<артефакт>.md`
 
-| Компонент      | Описание                               | Примеры                               |
-| -------------- | -------------------------------------- | ------------------------------------- |
-| `<YYYY-MM-DD>` | Дата проведения валидации              | `2025-11-03`                          |
-| `<артефакт>`   | Артефакт, который проверяется          | `technical_specification`, `TS_to_SR` |
-| `<расширение>` | `.pdf` для финальных, `.tex` для LaTeX | `.pdf`, `.tex`                        |
+| Компонент      | Описание                      | Примеры                               |
+| -------------- | ----------------------------- | ------------------------------------- |
+| `<YYYY-MM-DD>` | Дата проведения валидации     | `2025-11-03`                          |
+| `<артефакт>`   | Артефакт, который проверяется | `technical_specification`, `TS_to_SR` |
+| `.md`          | Расширение Markdown           | `.md`                                 |
 
 **Примеры:**
 ```
-✅ validations/1_technical_specification/2025-11-03_technical_specification.pdf
-✅ validations/1_technical_specification/2025-11-03_technical_specification.tex
-✅ validations/2_TS_to_SR/2025-12-10_TS_to_SR.pdf
+✅ validations/1_technical_specification/2025-11-03_technical_specification.md
+✅ validations/2_TS_to_SR/2025-12-10_TS_to_SR.md
 ```
 
 ### 3.4 Еженедельные отчеты
@@ -365,7 +365,7 @@ artifacts/
 ✅ artifacts/_formatting/1_technical_template.md
 ✅ artifacts/_formatting/1_technical_rules.md
 ✅ task-tracker/1_sprint/_task_template.md
-✅ validations/1_technical_specification/_inspection_template.tex
+✅ validations/1_technical_specification/_inspection_template.md
 ```
 
 ### 3.7 Служебные скрипты
