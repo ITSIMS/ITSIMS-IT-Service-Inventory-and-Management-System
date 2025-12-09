@@ -1,8 +1,9 @@
 # Трассировка требований: Техническое задание ↔ Требования к системе
 
-| Дата       | Номер версии | Автор       | Ссылка на задачу                                                              | Комментарий             |
-| ---------- | ------------ | ----------- | ----------------------------------------------------------------------------- | ----------------------- |
-| 2025-12-08 | v1.0         | Когановский | [2025-12-03_Koganovsky.md](../task-tracker/1_sprint/2025-12-03_Koganovsky.md) | Первая версия документа |
+| Дата       | Номер версии | Автор       | Ссылка на задачу                                                            | Комментарий                |
+| ---------- | ------------ | ----------- | --------------------------------------------------------------------------- | -------------------------- |
+| 2025-12-09 | v1.1         | Вальковец   | [2025-12-09_Valkovets.md](../task-tracker/3_done/2025-12-09_Valkovets.md)   | Добавлены новые требования |
+| 2025-12-08 | v1.0         | Когановский | [2025-12-03_Koganovsky.md](../task-tracker/3_done/2025-12-03_Koganovsky.md) | Первая версия документа    |
 
 
 
@@ -52,8 +53,28 @@
 | <a id="ts-f040-down"></a>[TS-F040](./1_technical_specification.md#ts-f040)    | —                                          |
 | <a id="ts-f041-down"></a>[TS-F041](./1_technical_specification.md#ts-f041)    | —                                          |
 | <a id="ts-f042-down"></a>[TS-F042](./1_technical_specification.md#ts-f042)    | —                                          |
+| <a id="ts-f043-down"></a>[TS-F043](./1_technical_specification.md#ts-f043)    | —                                          |
+| <a id="ts-f044-down"></a>[TS-F044](./1_technical_specification.md#ts-f044)    | —                                          |
+| <a id="ts-f045-down"></a>[TS-F045](./1_technical_specification.md#ts-f045)    | —                                          |
+| <a id="ts-f046-down"></a>[TS-F046](./1_technical_specification.md#ts-f046)    | —                                          |
+| <a id="ts-f047-down"></a>[TS-F047](./1_technical_specification.md#ts-f047)    | —                                          |
+| <a id="ts-f048-down"></a>[TS-F048](./1_technical_specification.md#ts-f048)    | —                                          |
+| <a id="ts-f049-down"></a>[TS-F049](./1_technical_specification.md#ts-f049)    | —                                          |
+| <a id="ts-f050-down"></a>[TS-F050](./1_technical_specification.md#ts-f050)    | —                                          |
+| <a id="ts-f051-down"></a>[TS-F051](./1_technical_specification.md#ts-f051)    | —                                          |
+| <a id="ts-f052-down"></a>[TS-F052](./1_technical_specification.md#ts-f052)    | —                                          |
+| <a id="ts-f053-down"></a>[TS-F053](./1_technical_specification.md#ts-f053)    | —                                          |
+| <a id="ts-f054-down"></a>[TS-F054](./1_technical_specification.md#ts-f054)    | —                                          |
+| <a id="ts-f055-down"></a>[TS-F055](./1_technical_specification.md#ts-f055)    | —                                          |
+| <a id="ts-f056-down"></a>[TS-F056](./1_technical_specification.md#ts-f056)    | —                                          |
+| <a id="ts-f057-down"></a>[TS-F057](./1_technical_specification.md#ts-f057)    | —                                          |
 | <a id="ts-i001-down"></a>[TS-I001](./1_technical_specification.md#ts-i001)    | —                                          |
 | <a id="ts-i002-down"></a>[TS-I002](./1_technical_specification.md#ts-i002)    | —                                          |
+| <a id="ts-i003-down"></a>[TS-I003](./1_technical_specification.md#ts-i003)    | —                                          |
+| <a id="ts-i004-down"></a>[TS-I004](./1_technical_specification.md#ts-i004)    | —                                          |
+| <a id="ts-i005-down"></a>[TS-I005](./1_technical_specification.md#ts-i005)    | —                                          |
+| <a id="ts-i006-down"></a>[TS-I006](./1_technical_specification.md#ts-i006)    | —                                          |
+| <a id="ts-i007-down"></a>[TS-I007](./1_technical_specification.md#ts-i007)    | —                                          |
 | <a id="ts-nf001-down"></a>[TS-NF001](./1_technical_specification.md#ts-nf001) | —                                          |
 | <a id="ts-nf002-down"></a>[TS-NF002](./1_technical_specification.md#ts-nf002) | —                                          |
 | <a id="ts-nf003-down"></a>[TS-NF003](./1_technical_specification.md#ts-nf003) | —                                          |
