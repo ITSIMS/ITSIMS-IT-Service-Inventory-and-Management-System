@@ -769,3 +769,10 @@ artifacts/
 - [README артефактов](../README.md) — описание структуры и назначения директории artifacts/
 - [Техническое задание](../1_technical_specification.md) — основной артефакт проекта
 - [Требования к системе](../2_system_requirements.md) — детализированные системные требования
+
+### Валидация и проверка качества
+
+- [README валидации](../../validations/README.md) — организация проверок и формальных инспекций артефактов
+- [Шаблон инспекции ТЗ](../../validations/1_technical_specification/_inspection_template.md) — проверка качества Технического задания
+- [Шаблон анализа трассировки ТЗ ↔ SR](../../validations/2_TS_to_SR/_traceability_analysis_template.md) — проверка корректности связей между ТЗ и SR
+- [Шаблон инспекции SR](../../validations/3_system_requirements/_inspection_template.md) — проверка качества Системных требований
