@@ -91,5 +91,6 @@ artifacts/
 - [Структура репозитория](../planning/repository/repository_structure.md) — где что находится в проекте
 - [Работа с Git](../planning/repository/git_workflow.md) — как работать с ветками и коммитами
 - [Структура документов](../planning/formatting/document_structure.md) — как оформлять документы
+- [Валидация артефактов](../validations/README.md) — проверка качества и формальные инспекции документов
 - [Главный README](../README.md) — обзор проекта
 

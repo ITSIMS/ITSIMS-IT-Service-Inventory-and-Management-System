@@ -185,11 +185,14 @@
 ```
 validations/
 ├── 1_technical_specification/
-│   ├── _inspection_template.md        # Шаблон
+│   ├── _inspection_template.md        # Шаблон инспекции
 │   └── 2025-11-03_technical_specification.md  # Отчет
-└── 2_TS_to_SR/
-    ├── _inspection_template.md
-    └── 2025-12-10_TS_to_SR.md
+├── 2_TS_to_SR/
+│   ├── _traceability_analysis_template.md  # Шаблон анализа трассировки
+│   └── 2025-12-10_TS_to_SR.md
+└── 3_system_requirements/
+    ├── _inspection_template.md        # Шаблон инспекции
+    └── 2025-12-XX_system_requirements.md
 ```
 
 **Правила:**
@@ -272,4 +275,6 @@ validations/<номер>_<артефакт>/_inspection_template.md
 - [Выбор формата документа](./format_selection.md) — обоснование выбора Markdown
 - [README по валидациям](../../validations/README.md) — организация папки validations
 - [Правила именования](../repository/naming_conventions.md) — правила именования файлов
-- [Шаблон инспекции ТЗ](../../validations/1_technical_specification/_inspection_template.md) — пример шаблона
+- [Шаблон инспекции ТЗ](../../validations/1_technical_specification/_inspection_template.md) — пример шаблона инспекции артефакта
+- [Шаблон инспекции SR](../../validations/3_system_requirements/_inspection_template.md) — шаблон инспекции системных требований
+- [Шаблон анализа трассировки](../../validations/2_TS_to_SR/_traceability_analysis_template.md) — проверка корректности связей между требованиями
