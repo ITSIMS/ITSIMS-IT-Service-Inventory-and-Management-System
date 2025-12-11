@@ -19,7 +19,7 @@
 
 ## Идентификация и проверка формальных свойств объекта инспекции
 
-**Объект инспекции (ссылка на репозиторий):** [artifacts/3_system_requirements.md](https://github.com/retrobanner/ITSIMS-IT-Service-Inventory-and-Management-System/blob/6d77a18b7c093a91bb414a7f2ee131e19456ea16/artifacts/3_system_requirements.md)
+**Объект инспекции (ссылка на репозиторий):** [artifacts/3_system_requirements.md](https://github.com/ITSIMS/ITSIMS-IT-Service-Inventory-and-Management-System/blob/6d77a18b7c093a91bb414a7f2ee131e19456ea16/artifacts/3_system_requirements.md)
 
 **Версия объекта (хэш коммита / тег):** 6d77a18b7c093a91bb414a7f2ee131e19456ea16
 
