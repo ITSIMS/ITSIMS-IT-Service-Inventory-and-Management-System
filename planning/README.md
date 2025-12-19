@@ -26,7 +26,8 @@
 planning/
 ├── README.md                                          # Главный навигационный документ
 ├── configuration_management/                          # Конфигурационное управление
-│   └── configuration_management_plan.md               # План конфигурационного управления
+│   ├── configuration_management_plan.md               # План конфигурационного управления
+│   └── configuration_management_plan_template.md      # Шаблон плана КУ
 ├── repository/                                        # Правила работы с репозиторием
 │   ├── git_workflow.md                                # Работа с Git
 │   ├── repository_structure.md                        # Структура репозитория
@@ -50,6 +51,7 @@ planning/
 
 **Содержание раздела:**
 - [План конфигурационного управления](./configuration_management/configuration_management_plan.md) — управление версиями, базовыми линиями и изменениями
+- [Шаблон плана КУ](./configuration_management/configuration_management_plan_template.md) — шаблон для создания плана КУ в новых проектах
 
 **Когда использовать:**
 - При планировании релизов
