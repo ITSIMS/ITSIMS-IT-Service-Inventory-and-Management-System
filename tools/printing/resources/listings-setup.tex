@@ -1,4 +1,18 @@
 \usepackage{fvextra}
+\usepackage{enumitem}
+
+% Increase maximum nesting depth for lists (default is 4, we need more for deep TOC)
+\setlistdepth{9}
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$\diamond$}
+\setlist[itemize,4]{label=$\triangleright$}
+\setlist[itemize,5]{label=$\ast$}
+\setlist[itemize,6]{label=$\cdot$}
+\setlist[itemize,7]{label=$\star$}
+\setlist[itemize,8]{label=$\bullet$}
+\setlist[itemize,9]{label=$\circ$}
+\renewlist{itemize}{itemize}{9}
 
 % Enable line breaking in code blocks
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{
