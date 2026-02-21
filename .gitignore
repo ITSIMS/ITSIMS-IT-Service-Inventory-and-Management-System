@@ -9,9 +9,6 @@
 # Print
 /print
 
-# Cursor
-.cursor
-
 # Commit tools (private)
 tools/commit_as.sh
 tools/merge_as.sh
