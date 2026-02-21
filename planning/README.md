@@ -31,7 +31,8 @@ planning/
 ├── repository/                                        # Правила работы с репозиторием
 │   ├── git_workflow.md                                # Работа с Git
 │   ├── repository_structure.md                        # Структура репозитория
-│   └── naming_conventions.md                          # Правила именования
+│   ├── naming_conventions.md                          # Правила именования
+│   └── verification_git_regulation.md                 # Регламент Git-процесса для верификации
 └── formatting/                                        # Правила форматирования документов
     ├── format_selection.md                            # Выбор формата (Markdown/LaTeX)
     ├── document_structure.md                          # Структура документа
@@ -51,6 +52,7 @@ planning/
 
 **Содержание раздела:**
 - [План конфигурационного управления](./configuration_management/configuration_management_plan.md) — управление версиями, базовыми линиями и изменениями
+- [План реагирования на инциденты доступа](./configuration_management/access_incident_response_plan.md) — SLA, эскалация и диагностика RBAC-инцидентов
 - [Шаблон плана КУ](./configuration_management/configuration_management_plan_template.md) — шаблон для создания плана КУ в новых проектах
 
 **Когда использовать:**
@@ -70,6 +72,7 @@ planning/
 - [Работа с Git](./repository/git_workflow.md) — как команда работает с ветками и коммитами
 - [Структура репозитория](./repository/repository_structure.md) — где что размещается в проекте
 - [Правила именования](./repository/naming_conventions.md) — как называть файлы, задачи и ветки
+- [Регламент верификации](./repository/verification_git_regulation.md) — правила PR и приемки артефактов верификации
 
 **Когда использовать:**
 - При начале работы над новой задачей
@@ -116,4 +119,3 @@ planning/
 ### Если ты работаешь с планами проекта:
 
 1. **Конфигурационное управление:** Изучи [план конфигурационного управления](./configuration_management/configuration_management_plan.md) — узнай о версионировании и базовых линиях
-

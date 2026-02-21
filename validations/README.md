@@ -23,6 +23,7 @@
 **Типы шаблонов:**
 - `_inspection_template.md` — для формальной инспекции артефактов (ТЗ, Системные требования)
 - `_traceability_analysis_template.md` — для анализа трассировки между требованиями разных уровней
+- `_verification_candidates_report_template.md` — для унифицированного отчета по проверке кандидатов верификации
 
 ```
 validations/
@@ -33,9 +34,13 @@ validations/
 ├── 2_TS_to_SR/                       # Анализ трассировки ТЗ ↔ SR
 │   ├── _traceability_analysis_template.md
 │   └── 2025-12-10_TS_to_SR.md
-└── 3_system_requirements/            # Системные требования
-    ├── _inspection_template.md
-    └── 2025-12-XX_system_requirements.md
+├── 3_system_requirements/            # Системные требования
+│   ├── _inspection_template.md
+│   └── 2025-12-XX_system_requirements.md
+└── 6_verification_candidates/        # Демонстрационные сценарии верификации кандидатов
+    ├── 2026-02-18_verification_coverage_matrix.md
+    ├── _verification_candidates_report_template.md
+    └── 2026-02-19_verification_candidates.md
 ```
 
 **Правила именования отчетов:**
@@ -71,3 +76,11 @@ validations/
 ### 4.2 Шаблоны анализа трассировки
 
 - [Шаблон анализа трассировки ТЗ ↔ SR](./2_TS_to_SR/_traceability_analysis_template.md) — проверка корректности связей между Техническим заданием и Системными требованиями
+
+### 4.3 Шаблон отчета по кандидатам верификации
+
+- [Шаблон отчета по проверкам кандидатов](./6_verification_candidates/_verification_candidates_report_template.md) — единый формат отчета: цель, методика, результаты, дефекты, риски, выводы
+
+### 4.4 Матрица покрытия по кандидатам верификации
+
+- [Матрица покрытия требований тест-кейсами](./6_verification_candidates/2026-02-18_verification_coverage_matrix.md) — сводное покрытие, пробелы и приоритеты закрытия
