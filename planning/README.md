@@ -73,6 +73,7 @@ planning/
 - [Структура репозитория](./repository/repository_structure.md) — где что размещается в проекте
 - [Правила именования](./repository/naming_conventions.md) — как называть файлы, задачи и ветки
 - [Регламент верификации](./repository/verification_git_regulation.md) — правила PR и приемки артефактов верификации
+- [Чеклист готовности к демонстрации](./repository/verification_demo_readiness_checklist.md) — контроль готовности команды к защите этапа верификации
 
 **Когда использовать:**
 - При начале работы над новой задачей
