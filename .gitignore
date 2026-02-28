@@ -11,4 +11,5 @@
 
 # Commit tools (private)
 tools/commit_as.sh
+tools/commit_as.ps1
 tools/merge_as.sh
