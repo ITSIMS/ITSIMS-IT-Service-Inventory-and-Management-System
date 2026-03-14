@@ -276,5 +276,6 @@ validations/<номер>_<артефакт>/_inspection_template.md
 - [README по валидациям](../../validations/README.md) — организация папки validations
 - [Правила именования](../repository/naming_conventions.md) — правила именования файлов
 - [Шаблон инспекции ТЗ](../../validations/1_technical_specification/_inspection_template.md) — пример шаблона инспекции артефакта
+- [Пример заполненного протокола ФИ (ТЗ)](../../validations/1_technical_specification/2026-03-14_technical_specification_inspection_example.md) — эталонный заполненный протокол для демонстрации ожидаемого оформления
 - [Шаблон инспекции SR](../../validations/3_system_requirements/_inspection_template.md) — шаблон инспекции системных требований
 - [Шаблон анализа трассировки](../../validations/2_TS_to_SR/_traceability_analysis_template.md) — проверка корректности связей между требованиями
