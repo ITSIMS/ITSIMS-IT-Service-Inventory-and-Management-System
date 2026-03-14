@@ -2,6 +2,7 @@
 
 | Дата       | Номер версии | Автор  | Ссылка на задачу                                                           | Комментарий                                   |
 | ---------- | ------------ | ------ | -------------------------------------------------------------------------- | --------------------------------------------- |
+| 2026-03-14 | v1.2         | Баранов | [2026-03-07_Baranov.md](../../task-tracker/3_done/2026-03-07_Baranov.md)   | Ревью целей 1–8, сводка цель – артефакт       |
 | 2026-02-26 | v1.1         | Ловков | [2026-02-26_Lovkov.md](../../task-tracker/3_done/2026-02-26_Lovkov.md)     | Пункт проверки входов/выходов в плане КУ      |
 | 2026-02-20 | v1.0         | Баранов | [2026-02-20_Baranov.md](../../task-tracker/3_done/2026-02-20_Baranov.md)   | Сводный чеклист готовности к демонстрации     |
 
@@ -64,3 +65,20 @@
    - демонстрационные сценарии;
    - подтвержденный процесс фиксации замечаний.
 3. Команда провела минимум один dry-run целиком.
+
+
+
+## 6. Сводка «цель – артефакт» (цели 1–8 этапа верификации)
+
+Ревью достижения целей, сформулированных для этапа верификации (28.02–06.03.2026 и 07.03–14.03.2026):
+
+| № цели | Цель | Артефакт |
+| ------ | ---- | -------- |
+| 1 | Инструменты для запуска и протоколирования тестов | [2026-03-01_testing_tools.md](../../validations/6_verification_candidates/2026-03-01_testing_tools.md) |
+| 2 | Процесс верификации и структура тестов | [2026-03-02_verification_test_process.md](../../validations/6_verification_candidates/2026-03-02_verification_test_process.md) |
+| 3 | Шаблон отчёта о прогоне и примеры сценариев | [2026-03-02_test_run_report_template.md](../../validations/6_verification_candidates/2026-03-02_test_run_report_template.md), [2026-02-19_verification_candidates.md](../../validations/6_verification_candidates/2026-02-19_verification_candidates.md) |
+| 4 | Протокол проверки и шаблон баг-репорта | [2026-03-03_test_protocol_and_bug_report_template.md](../../validations/6_verification_candidates/2026-03-03_test_protocol_and_bug_report_template.md) |
+| 5 | Генерация отчётных артефактов по результатам тестов | [test_report_generation_guide.md](../../tools/printing/instructions/test_report_generation_guide.md) |
+| 6 | Раздел 9 ПКУ (входы и выходы процесса верификации) | [configuration_management_plan.md](../../planning/configuration_management/configuration_management_plan.md#9-входы-и-выходы-процесса-верификации-артефакты-тестирования-протоколы-прогонов-отчёты-о-дефектах) |
+| 7 | Процедура проведения формальной инспекции | [formal_inspection_rules.md](../../planning/formatting/formal_inspection_rules.md) (раздел 7) |
+| 8 | Примеры оформления протоколов и баг-репортов | [_verification_candidates_report_template.md](../../validations/6_verification_candidates/_verification_candidates_report_template.md) (раздел 6), [2026-03-14_technical_specification_inspection_example.md](../../validations/1_technical_specification/2026-03-14_technical_specification_inspection_example.md) |
