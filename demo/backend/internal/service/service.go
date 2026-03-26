@@ -17,8 +17,8 @@ func NewServiceImpl(repo repository.ServiceRepository) ServiceService {
 	return &serviceImpl{repo: repo}
 }
 
-func (s *serviceImpl) GetAll(ctx context.Context) ([]model.Service, error) {
-	return s.repo.GetAll(ctx)
+func (s *serviceImpl) GetAll(ctx context.Context, filter model.ServiceFilter) ([]model.Service, error) {
+	return s.repo.GetAll(ctx, filter)
 }
 
 func (s *serviceImpl) GetByID(ctx context.Context, id uuid.UUID) (*model.Service, error) {
@@ -58,4 +58,8 @@ func (s *serviceImpl) Update(ctx context.Context, id uuid.UUID, req model.Update
 
 func (s *serviceImpl) Delete(ctx context.Context, id uuid.UUID) error {
 	return s.repo.Delete(ctx, id)
+}
+
+func (s *serviceImpl) GetStats(ctx context.Context) (*model.ServiceStats, error) {
+	return s.repo.GetStats(ctx)
 }

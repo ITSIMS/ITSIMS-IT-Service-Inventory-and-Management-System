@@ -3,6 +3,8 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"fmt"
+	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -18,10 +20,34 @@ func NewPostgresServiceRepository(db *sql.DB) *PostgresServiceRepository {
 	return &PostgresServiceRepository{db: db}
 }
 
-func (r *PostgresServiceRepository) GetAll(ctx context.Context) ([]model.Service, error) {
-	query := `SELECT id, name, description, category, status, created_at, updated_at FROM services ORDER BY created_at DESC`
+func (r *PostgresServiceRepository) GetAll(ctx context.Context, filter model.ServiceFilter) ([]model.Service, error) {
+	var conditions []string
+	var args []interface{}
+	argIdx := 1
 
-	rows, err := r.db.QueryContext(ctx, query)
+	if filter.Category != "" {
+		conditions = append(conditions, fmt.Sprintf("category = $%d", argIdx))
+		args = append(args, filter.Category)
+		argIdx++
+	}
+	if filter.Status != "" {
+		conditions = append(conditions, fmt.Sprintf("status = $%d", argIdx))
+		args = append(args, filter.Status)
+		argIdx++
+	}
+	if filter.Search != "" {
+		conditions = append(conditions, fmt.Sprintf("name ILIKE $%d", argIdx))
+		args = append(args, "%"+filter.Search+"%")
+		argIdx++
+	}
+
+	query := "SELECT id, name, description, category, status, created_at, updated_at FROM services"
+	if len(conditions) > 0 {
+		query += " WHERE " + strings.Join(conditions, " AND ")
+	}
+	query += " ORDER BY created_at DESC"
+
+	rows, err := r.db.QueryContext(ctx, query, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -117,4 +143,59 @@ func (r *PostgresServiceRepository) Delete(ctx context.Context, id uuid.UUID) er
 	}
 
 	return nil
+}
+
+func (r *PostgresServiceRepository) GetStats(ctx context.Context) (*model.ServiceStats, error) {
+	stats := &model.ServiceStats{}
+
+	// Get total
+	err := r.db.QueryRowContext(ctx, "SELECT COUNT(*) FROM services").Scan(&stats.Total)
+	if err != nil {
+		return nil, err
+	}
+
+	// By status
+	rowsStatus, err := r.db.QueryContext(ctx, "SELECT status, COUNT(*) FROM services GROUP BY status ORDER BY status")
+	if err != nil {
+		return nil, err
+	}
+	defer rowsStatus.Close()
+
+	for rowsStatus.Next() {
+		var item model.StatsItem
+		if err := rowsStatus.Scan(&item.Key, &item.Count); err != nil {
+			return nil, err
+		}
+		stats.ByStatus = append(stats.ByStatus, item)
+	}
+	if err := rowsStatus.Err(); err != nil {
+		return nil, err
+	}
+
+	// By category
+	rowsCat, err := r.db.QueryContext(ctx, "SELECT category, COUNT(*) FROM services GROUP BY category ORDER BY category")
+	if err != nil {
+		return nil, err
+	}
+	defer rowsCat.Close()
+
+	for rowsCat.Next() {
+		var item model.StatsItem
+		if err := rowsCat.Scan(&item.Key, &item.Count); err != nil {
+			return nil, err
+		}
+		stats.ByCategory = append(stats.ByCategory, item)
+	}
+	if err := rowsCat.Err(); err != nil {
+		return nil, err
+	}
+
+	if stats.ByStatus == nil {
+		stats.ByStatus = []model.StatsItem{}
+	}
+	if stats.ByCategory == nil {
+		stats.ByCategory = []model.StatsItem{}
+	}
+
+	return stats, nil
 }

@@ -29,7 +29,12 @@ func (h *Handler) RegisterRoutes(r *gin.Engine) {
 		api.GET("/services/:id", h.GetByID)
 		api.PUT("/services/:id", h.Update)
 		api.DELETE("/services/:id", h.Delete)
+		api.GET("/stats", h.GetStats)
 	}
+}
+
+func (h *Handler) RegisterAPIRoutes(api *gin.RouterGroup) {
+	api.GET("/stats", h.GetStats)
 }
 
 func (h *Handler) HealthCheck(c *gin.Context) {
@@ -37,7 +42,13 @@ func (h *Handler) HealthCheck(c *gin.Context) {
 }
 
 func (h *Handler) GetAll(c *gin.Context) {
-	services, err := h.svc.GetAll(c.Request.Context())
+	filter := model.ServiceFilter{
+		Category: c.Query("category"),
+		Status:   c.Query("status"),
+		Search:   c.Query("search"),
+	}
+
+	services, err := h.svc.GetAll(c.Request.Context(), filter)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -129,4 +140,14 @@ func (h *Handler) Delete(c *gin.Context) {
 	}
 
 	c.Status(http.StatusNoContent)
+}
+
+func (h *Handler) GetStats(c *gin.Context) {
+	stats, err := h.svc.GetStats(c.Request.Context())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, stats)
 }

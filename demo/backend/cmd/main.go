@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"itsims/demo/internal/dependency"
 	"itsims/demo/internal/handler"
 	"itsims/demo/internal/repository"
 	"itsims/demo/internal/service"
@@ -47,6 +48,10 @@ func main() {
 	svc := service.NewServiceImpl(repo)
 	h := handler.NewHandler(svc)
 
+	depRepo := dependency.NewPostgresDependencyRepository(db)
+	depSvc := dependency.NewDependencyService(depRepo, repo)
+	depHandler := dependency.NewDependencyHandler(depSvc)
+
 	r := gin.Default()
 
 	// CORS middleware
@@ -64,6 +69,9 @@ func main() {
 	})
 
 	h.RegisterRoutes(r)
+
+	api := r.Group("/api/v1")
+	depHandler.RegisterRoutes(api)
 
 	log.Printf("server starting on port %s", port)
 	if err := r.Run(":" + port); err != nil {

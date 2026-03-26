@@ -5,9 +5,11 @@ interface ServiceListProps {
   services: Service[];
   onEdit: (service: Service) => void;
   onDelete: (id: string) => void;
+  onRowClick?: (service: Service) => void;
+  selectedId?: string;
 }
 
-export function ServiceList({ services, onEdit, onDelete }: ServiceListProps) {
+export function ServiceList({ services, onEdit, onDelete, onRowClick, selectedId }: ServiceListProps) {
   if (services.length === 0) {
     return (
       <p style={{ color: '#6c757d', textAlign: 'center', marginTop: '40px' }}>
@@ -44,6 +46,8 @@ export function ServiceList({ services, onEdit, onDelete }: ServiceListProps) {
               service={service}
               onEdit={onEdit}
               onDelete={onDelete}
+              onRowClick={onRowClick}
+              isSelected={selectedId === service.id}
             />
           ))}
         </tbody>

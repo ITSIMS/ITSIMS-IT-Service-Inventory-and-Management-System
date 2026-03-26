@@ -18,8 +18,8 @@ type MockServiceRepository struct {
 	mock.Mock
 }
 
-func (m *MockServiceRepository) GetAll(ctx context.Context) ([]model.Service, error) {
-	args := m.Called(ctx)
+func (m *MockServiceRepository) GetAll(ctx context.Context, filter model.ServiceFilter) ([]model.Service, error) {
+	args := m.Called(ctx, filter)
 	return args.Get(0).([]model.Service), args.Error(1)
 }
 
@@ -52,18 +52,45 @@ func (m *MockServiceRepository) Delete(ctx context.Context, id uuid.UUID) error 
 	return args.Error(0)
 }
 
+func (m *MockServiceRepository) GetStats(ctx context.Context) (*model.ServiceStats, error) {
+	args := m.Called(ctx)
+	if args.Get(0) == nil {
+		return nil, args.Error(1)
+	}
+	return args.Get(0).(*model.ServiceStats), args.Error(1)
+}
+
 func TestGetAll_Success(t *testing.T) {
 	mockRepo := new(MockServiceRepository)
 	svc := NewServiceImpl(mockRepo)
 	ctx := context.Background()
 
+	filter := model.ServiceFilter{}
 	expected := []model.Service{
 		{ID: uuid.New(), Name: "Service 1", Status: "active", CreatedAt: time.Now(), UpdatedAt: time.Now()},
 	}
 
-	mockRepo.On("GetAll", ctx).Return(expected, nil)
+	mockRepo.On("GetAll", ctx, filter).Return(expected, nil)
 
-	result, err := svc.GetAll(ctx)
+	result, err := svc.GetAll(ctx, filter)
+	assert.NoError(t, err)
+	assert.Equal(t, expected, result)
+	mockRepo.AssertExpectations(t)
+}
+
+func TestGetAll_WithFilter(t *testing.T) {
+	mockRepo := new(MockServiceRepository)
+	svc := NewServiceImpl(mockRepo)
+	ctx := context.Background()
+
+	filter := model.ServiceFilter{Category: "DevOps", Status: "active"}
+	expected := []model.Service{
+		{ID: uuid.New(), Name: "GitLab", Status: "active", Category: "DevOps"},
+	}
+
+	mockRepo.On("GetAll", ctx, filter).Return(expected, nil)
+
+	result, err := svc.GetAll(ctx, filter)
 	assert.NoError(t, err)
 	assert.Equal(t, expected, result)
 	mockRepo.AssertExpectations(t)
@@ -74,9 +101,10 @@ func TestGetAll_Error(t *testing.T) {
 	svc := NewServiceImpl(mockRepo)
 	ctx := context.Background()
 
-	mockRepo.On("GetAll", ctx).Return([]model.Service{}, errors.New("db error"))
+	filter := model.ServiceFilter{}
+	mockRepo.On("GetAll", ctx, filter).Return([]model.Service{}, errors.New("db error"))
 
-	result, err := svc.GetAll(ctx)
+	result, err := svc.GetAll(ctx, filter)
 	assert.Error(t, err)
 	assert.Empty(t, result)
 	mockRepo.AssertExpectations(t)
@@ -321,5 +349,42 @@ func TestDelete_Error(t *testing.T) {
 	err := svc.Delete(ctx, id)
 	assert.Error(t, err)
 	assert.True(t, errors.Is(err, sql.ErrNoRows))
+	mockRepo.AssertExpectations(t)
+}
+
+func TestGetStats_Success(t *testing.T) {
+	mockRepo := new(MockServiceRepository)
+	svc := NewServiceImpl(mockRepo)
+	ctx := context.Background()
+
+	expected := &model.ServiceStats{
+		Total: 5,
+		ByStatus: []model.StatsItem{
+			{Key: "active", Count: 3},
+			{Key: "inactive", Count: 2},
+		},
+		ByCategory: []model.StatsItem{
+			{Key: "DevOps", Count: 2},
+		},
+	}
+
+	mockRepo.On("GetStats", ctx).Return(expected, nil)
+
+	result, err := svc.GetStats(ctx)
+	assert.NoError(t, err)
+	assert.Equal(t, expected, result)
+	mockRepo.AssertExpectations(t)
+}
+
+func TestGetStats_Error(t *testing.T) {
+	mockRepo := new(MockServiceRepository)
+	svc := NewServiceImpl(mockRepo)
+	ctx := context.Background()
+
+	mockRepo.On("GetStats", ctx).Return(nil, errors.New("db error"))
+
+	result, err := svc.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, result)
 	mockRepo.AssertExpectations(t)
 }

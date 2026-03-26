@@ -29,3 +29,20 @@ type UpdateServiceRequest struct {
 	Category    string `json:"category"`
 	Status      string `json:"status"`
 }
+
+type ServiceFilter struct {
+	Category string
+	Status   string
+	Search   string // поиск по name (ILIKE)
+}
+
+type StatsItem struct {
+	Key   string `json:"key"`
+	Count int    `json:"count"`
+}
+
+type ServiceStats struct {
+	Total      int         `json:"total"`
+	ByStatus   []StatsItem `json:"by_status"`
+	ByCategory []StatsItem `json:"by_category"`
+}

@@ -38,11 +38,103 @@ func TestGetAll_Success(t *testing.T) {
 	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services`).
 		WillReturnRows(rows)
 
-	services, err := repo.GetAll(ctx)
+	services, err := repo.GetAll(ctx, model.ServiceFilter{})
 	assert.NoError(t, err)
 	assert.Len(t, services, 2)
 	assert.Equal(t, id1, services[0].ID)
 	assert.Equal(t, "Service 1", services[0].Name)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetAll_WithFilter_Category(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	id1 := uuid.New()
+	now := time.Now()
+
+	rows := sqlmock.NewRows([]string{"id", "name", "description", "category", "status", "created_at", "updated_at"}).
+		AddRow(id1, "Service 1", "Desc 1", "DevOps", "active", now, now)
+
+	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services WHERE category`).
+		WithArgs("DevOps").
+		WillReturnRows(rows)
+
+	services, err := repo.GetAll(ctx, model.ServiceFilter{Category: "DevOps"})
+	assert.NoError(t, err)
+	assert.Len(t, services, 1)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetAll_WithFilter_Status(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	id1 := uuid.New()
+	now := time.Now()
+
+	rows := sqlmock.NewRows([]string{"id", "name", "description", "category", "status", "created_at", "updated_at"}).
+		AddRow(id1, "Service 1", "Desc 1", "Cat 1", "active", now, now)
+
+	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services WHERE status`).
+		WithArgs("active").
+		WillReturnRows(rows)
+
+	services, err := repo.GetAll(ctx, model.ServiceFilter{Status: "active"})
+	assert.NoError(t, err)
+	assert.Len(t, services, 1)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetAll_WithFilter_Search(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	id1 := uuid.New()
+	now := time.Now()
+
+	rows := sqlmock.NewRows([]string{"id", "name", "description", "category", "status", "created_at", "updated_at"}).
+		AddRow(id1, "GitLab", "Desc 1", "DevOps", "active", now, now)
+
+	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services WHERE name ILIKE`).
+		WithArgs("%Git%").
+		WillReturnRows(rows)
+
+	services, err := repo.GetAll(ctx, model.ServiceFilter{Search: "Git"})
+	assert.NoError(t, err)
+	assert.Len(t, services, 1)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetAll_WithFilter_Multiple(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	id1 := uuid.New()
+	now := time.Now()
+
+	rows := sqlmock.NewRows([]string{"id", "name", "description", "category", "status", "created_at", "updated_at"}).
+		AddRow(id1, "GitLab", "Desc 1", "DevOps", "active", now, now)
+
+	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services WHERE`).
+		WithArgs("DevOps", "active").
+		WillReturnRows(rows)
+
+	services, err := repo.GetAll(ctx, model.ServiceFilter{Category: "DevOps", Status: "active"})
+	assert.NoError(t, err)
+	assert.Len(t, services, 1)
 	assert.NoError(t, mock.ExpectationsWereMet())
 }
 
@@ -56,7 +148,7 @@ func TestGetAll_QueryError(t *testing.T) {
 	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services`).
 		WillReturnError(errors.New("query error"))
 
-	services, err := repo.GetAll(ctx)
+	services, err := repo.GetAll(ctx, model.ServiceFilter{})
 	assert.Error(t, err)
 	assert.Nil(t, services)
 	assert.NoError(t, mock.ExpectationsWereMet())
@@ -75,7 +167,7 @@ func TestGetAll_ScanError(t *testing.T) {
 	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services`).
 		WillReturnRows(rows)
 
-	services, err := repo.GetAll(ctx)
+	services, err := repo.GetAll(ctx, model.ServiceFilter{})
 	assert.Error(t, err)
 	assert.Nil(t, services)
 	assert.NoError(t, mock.ExpectationsWereMet())
@@ -161,7 +253,7 @@ func TestGetAll_RowsError(t *testing.T) {
 	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services`).
 		WillReturnRows(rows)
 
-	services, err := repo.GetAll(ctx)
+	services, err := repo.GetAll(ctx, model.ServiceFilter{})
 	assert.Error(t, err)
 	assert.Nil(t, services)
 	assert.NoError(t, mock.ExpectationsWereMet())
@@ -345,5 +437,142 @@ func TestDelete_QueryError(t *testing.T) {
 
 	err := repo.Delete(ctx, id)
 	assert.Error(t, err)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_Success(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(5))
+
+	statusRows := sqlmock.NewRows([]string{"status", "count"}).
+		AddRow("active", 3).
+		AddRow("inactive", 2)
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnRows(statusRows)
+
+	catRows := sqlmock.NewRows([]string{"category", "count"}).
+		AddRow("DevOps", 2).
+		AddRow("Monitoring", 1)
+	mock.ExpectQuery(`SELECT category, COUNT\(\*\) FROM services GROUP BY category`).
+		WillReturnRows(catRows)
+
+	stats, err := repo.GetStats(ctx)
+	assert.NoError(t, err)
+	assert.NotNil(t, stats)
+	assert.Equal(t, 5, stats.Total)
+	assert.Len(t, stats.ByStatus, 2)
+	assert.Len(t, stats.ByCategory, 2)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_TotalError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnError(errors.New("count error"))
+
+	stats, err := repo.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, stats)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_StatusError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(5))
+
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnError(errors.New("status query error"))
+
+	stats, err := repo.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, stats)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_CategoryError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(5))
+
+	statusRows := sqlmock.NewRows([]string{"status", "count"}).
+		AddRow("active", 3)
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnRows(statusRows)
+
+	mock.ExpectQuery(`SELECT category, COUNT\(\*\) FROM services GROUP BY category`).
+		WillReturnError(errors.New("category query error"))
+
+	stats, err := repo.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, stats)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_StatusScanError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(5))
+
+	statusRows := sqlmock.NewRows([]string{"status", "count"}).
+		AddRow("active", "not-a-number")
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnRows(statusRows)
+
+	stats, err := repo.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, stats)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_CategoryScanError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(5))
+
+	statusRows := sqlmock.NewRows([]string{"status", "count"}).
+		AddRow("active", 3)
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnRows(statusRows)
+
+	catRows := sqlmock.NewRows([]string{"category", "count"}).
+		AddRow("DevOps", "not-a-number")
+	mock.ExpectQuery(`SELECT category, COUNT\(\*\) FROM services GROUP BY category`).
+		WillReturnRows(catRows)
+
+	stats, err := repo.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, stats)
 	assert.NoError(t, mock.ExpectationsWereMet())
 }

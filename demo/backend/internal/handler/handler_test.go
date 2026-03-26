@@ -23,8 +23,8 @@ type MockServiceService struct {
 	mock.Mock
 }
 
-func (m *MockServiceService) GetAll(ctx context.Context) ([]model.Service, error) {
-	args := m.Called(ctx)
+func (m *MockServiceService) GetAll(ctx context.Context, filter model.ServiceFilter) ([]model.Service, error) {
+	args := m.Called(ctx, filter)
 	return args.Get(0).([]model.Service), args.Error(1)
 }
 
@@ -57,6 +57,14 @@ func (m *MockServiceService) Delete(ctx context.Context, id uuid.UUID) error {
 	return args.Error(0)
 }
 
+func (m *MockServiceService) GetStats(ctx context.Context) (*model.ServiceStats, error) {
+	args := m.Called(ctx)
+	if args.Get(0) == nil {
+		return nil, args.Error(1)
+	}
+	return args.Get(0).(*model.ServiceStats), args.Error(1)
+}
+
 func setupRouter(svc *MockServiceService) *gin.Engine {
 	gin.SetMode(gin.TestMode)
 	r := gin.New()
@@ -73,7 +81,7 @@ func TestGetAll_Success(t *testing.T) {
 		{ID: uuid.New(), Name: "Service 1", Status: "active", CreatedAt: time.Now(), UpdatedAt: time.Now()},
 	}
 
-	mockSvc.On("GetAll", mock.Anything).Return(services, nil)
+	mockSvc.On("GetAll", mock.Anything, model.ServiceFilter{}).Return(services, nil)
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest(http.MethodGet, "/api/v1/services", nil)
@@ -88,11 +96,30 @@ func TestGetAll_Success(t *testing.T) {
 	mockSvc.AssertExpectations(t)
 }
 
+func TestGetAll_WithFilters(t *testing.T) {
+	mockSvc := new(MockServiceService)
+	router := setupRouter(mockSvc)
+
+	services := []model.Service{
+		{ID: uuid.New(), Name: "GitLab", Status: "active", Category: "DevOps"},
+	}
+
+	expectedFilter := model.ServiceFilter{Category: "DevOps", Status: "active", Search: "Git"}
+	mockSvc.On("GetAll", mock.Anything, expectedFilter).Return(services, nil)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest(http.MethodGet, "/api/v1/services?category=DevOps&status=active&search=Git", nil)
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	mockSvc.AssertExpectations(t)
+}
+
 func TestGetAll_Error(t *testing.T) {
 	mockSvc := new(MockServiceService)
 	router := setupRouter(mockSvc)
 
-	mockSvc.On("GetAll", mock.Anything).Return([]model.Service{}, errors.New("db error"))
+	mockSvc.On("GetAll", mock.Anything, model.ServiceFilter{}).Return([]model.Service{}, errors.New("db error"))
 
 	w := httptest.NewRecorder()
 	req, _ := http.NewRequest(http.MethodGet, "/api/v1/services", nil)
@@ -403,4 +430,48 @@ func TestHealthCheck(t *testing.T) {
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
+}
+
+func TestGetStats_Success(t *testing.T) {
+	mockSvc := new(MockServiceService)
+	router := setupRouter(mockSvc)
+
+	expected := &model.ServiceStats{
+		Total: 5,
+		ByStatus: []model.StatsItem{
+			{Key: "active", Count: 3},
+			{Key: "inactive", Count: 2},
+		},
+		ByCategory: []model.StatsItem{
+			{Key: "DevOps", Count: 2},
+		},
+	}
+
+	mockSvc.On("GetStats", mock.Anything).Return(expected, nil)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+
+	var result model.ServiceStats
+	err := json.Unmarshal(w.Body.Bytes(), &result)
+	assert.NoError(t, err)
+	assert.Equal(t, 5, result.Total)
+	mockSvc.AssertExpectations(t)
+}
+
+func TestGetStats_Error(t *testing.T) {
+	mockSvc := new(MockServiceService)
+	router := setupRouter(mockSvc)
+
+	mockSvc.On("GetStats", mock.Anything).Return(nil, errors.New("db error"))
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+	router.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusInternalServerError, w.Code)
+	mockSvc.AssertExpectations(t)
 }
