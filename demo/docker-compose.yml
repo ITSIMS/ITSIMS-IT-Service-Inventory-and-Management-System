@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: itsims
+      POSTGRES_USER: itsims
+      POSTGRES_PASSWORD: itsims_pass
+    volumes:
+      - ./migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U itsims"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: itsims
+      DB_PASSWORD: itsims_pass
+      DB_NAME: itsims
+      PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  pg_data:
