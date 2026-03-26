@@ -8,6 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	_ "github.com/lib/pq"
+	"itsims/demo/internal/db"
 	"itsims/demo/internal/dependency"
 	"itsims/demo/internal/handler"
 	"itsims/demo/internal/repository"
@@ -32,23 +33,33 @@ func main() {
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
 		dbHost, dbPort, dbUser, dbPassword, dbName)
 
-	db, err := sql.Open("postgres", dsn)
+	database, err := sql.Open("postgres", dsn)
 	if err != nil {
 		log.Fatalf("failed to open database: %v", err)
 	}
-	defer db.Close()
+	defer database.Close()
 
-	if err := db.Ping(); err != nil {
+	if err := database.Ping(); err != nil {
 		log.Fatalf("failed to connect to database: %v", err)
 	}
-
 	log.Println("connected to database")
 
-	repo := repository.NewPostgresServiceRepository(db)
+	// Применяем миграции при каждом старте (IF NOT EXISTS — безопасно)
+	if err := db.Migrate(database); err != nil {
+		log.Fatalf("migration failed: %v", err)
+	}
+	log.Println("migrations applied")
+
+	// Заполняем тестовыми данными если таблица пустая
+	if err := db.Seed(database); err != nil {
+		log.Printf("seed warning: %v", err)
+	}
+
+	repo := repository.NewPostgresServiceRepository(database)
 	svc := service.NewServiceImpl(repo)
 	h := handler.NewHandler(svc)
 
-	depRepo := dependency.NewPostgresDependencyRepository(db)
+	depRepo := dependency.NewPostgresDependencyRepository(database)
 	depSvc := dependency.NewDependencyService(depRepo, repo)
 	depHandler := dependency.NewDependencyHandler(depSvc)
 

@@ -7,7 +7,6 @@ services:
       POSTGRES_USER: itsims
       POSTGRES_PASSWORD: itsims_pass
     volumes:
-      - ./migrations/001_init.sql:/docker-entrypoint-initdb.d/001_init.sql
       - pg_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
