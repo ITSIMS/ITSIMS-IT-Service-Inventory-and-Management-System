@@ -348,27 +348,57 @@ func TestRemoveDependency_Success(t *testing.T) {
 	ctx := context.Background()
 
 	svcID := uuid.New()
-	depID := uuid.New()
+	dependsOnID := uuid.New()
+	recordID := uuid.New()
 
-	depRepo.On("Delete", ctx, depID).Return(nil)
+	depRecord := &model.ServiceDependency{
+		ID:          recordID,
+		ServiceID:   svcID,
+		DependsOnID: dependsOnID,
+	}
+	depRepo.On("GetByPair", ctx, svcID, dependsOnID).Return(depRecord, nil)
+	depRepo.On("Delete", ctx, recordID).Return(nil)
 
-	err := svc.RemoveDependency(ctx, svcID, depID)
+	err := svc.RemoveDependency(ctx, svcID, dependsOnID)
 	assert.NoError(t, err)
 	depRepo.AssertExpectations(t)
 }
 
-func TestRemoveDependency_Error(t *testing.T) {
+func TestRemoveDependency_GetByPairError(t *testing.T) {
 	depRepo := new(MockDependencyRepository)
 	svcRepo := new(MockServiceRepository)
 	svc := NewDependencyService(depRepo, svcRepo)
 	ctx := context.Background()
 
 	svcID := uuid.New()
-	depID := uuid.New()
+	dependsOnID := uuid.New()
 
-	depRepo.On("Delete", ctx, depID).Return(sql.ErrNoRows)
+	depRepo.On("GetByPair", ctx, svcID, dependsOnID).Return(nil, sql.ErrNoRows)
 
-	err := svc.RemoveDependency(ctx, svcID, depID)
+	err := svc.RemoveDependency(ctx, svcID, dependsOnID)
+	assert.ErrorIs(t, err, sql.ErrNoRows)
+	depRepo.AssertExpectations(t)
+}
+
+func TestRemoveDependency_DeleteError(t *testing.T) {
+	depRepo := new(MockDependencyRepository)
+	svcRepo := new(MockServiceRepository)
+	svc := NewDependencyService(depRepo, svcRepo)
+	ctx := context.Background()
+
+	svcID := uuid.New()
+	dependsOnID := uuid.New()
+	recordID := uuid.New()
+
+	depRecord := &model.ServiceDependency{
+		ID:          recordID,
+		ServiceID:   svcID,
+		DependsOnID: dependsOnID,
+	}
+	depRepo.On("GetByPair", ctx, svcID, dependsOnID).Return(depRecord, nil)
+	depRepo.On("Delete", ctx, recordID).Return(sql.ErrNoRows)
+
+	err := svc.RemoveDependency(ctx, svcID, dependsOnID)
 	assert.ErrorIs(t, err, sql.ErrNoRows)
 	depRepo.AssertExpectations(t)
 }

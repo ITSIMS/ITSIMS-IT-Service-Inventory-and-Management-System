@@ -6,6 +6,9 @@ import {
   updateService,
   deleteService,
   getStats,
+  getDependencies,
+  addDependency,
+  removeDependency,
 } from './api/services';
 import { ServiceList } from './components/ServiceList';
 import { ServiceForm } from './components/ServiceForm';
@@ -32,6 +35,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [editingService, setEditingService] = useState<Service | null>(null);
+  const [editingDeps, setEditingDeps] = useState<string[]>([]);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>('services');
   const [filterParams, setFilterParams] = useState<FilterParams>({});
@@ -85,28 +89,47 @@ function App() {
 
   const handleAddClick = () => {
     setEditingService(null);
+    setEditingDeps([]);
     setShowForm(true);
   };
 
-  const handleEdit = (service: Service) => {
+  const handleEdit = async (service: Service) => {
     setEditingService(service);
     setShowForm(true);
+    try {
+      const deps = await getDependencies(service.id);
+      setEditingDeps(deps.depends_on.map((d) => d.id));
+    } catch {
+      setEditingDeps([]);
+    }
   };
 
   const handleCancel = () => {
     setShowForm(false);
     setEditingService(null);
+    setEditingDeps([]);
   };
 
-  const handleSave = async (data: CreateServiceRequest) => {
+  const handleSave = async (data: CreateServiceRequest, depIds: string[]) => {
     try {
+      let serviceId: string;
       if (editingService) {
         await updateService(editingService.id, data);
+        serviceId = editingService.id;
+
+        // Sync dependencies: add new, remove deleted
+        const toAdd = depIds.filter((id) => !editingDeps.includes(id));
+        const toRemove = editingDeps.filter((id) => !depIds.includes(id));
+        await Promise.all(toAdd.map((id) => addDependency(serviceId, id)));
+        await Promise.all(toRemove.map((id) => removeDependency(serviceId, id)));
       } else {
-        await createService(data);
+        const created = await createService(data);
+        serviceId = created.id;
+        await Promise.all(depIds.map((id) => addDependency(serviceId, id)));
       }
       setShowForm(false);
       setEditingService(null);
+      setEditingDeps([]);
       await loadServices(filterParams);
       await loadStats();
       await loadAllServices();
@@ -184,6 +207,8 @@ function App() {
             {showForm && (
               <ServiceForm
                 service={editingService}
+                allServices={allServices}
+                initialDependencies={editingDeps}
                 onSave={handleSave}
                 onCancel={handleCancel}
               />

@@ -104,8 +104,12 @@ func (s *dependencyServiceImpl) AddDependency(ctx context.Context, serviceID, de
 	return s.repo.Create(ctx, serviceID, dependsOnID)
 }
 
-func (s *dependencyServiceImpl) RemoveDependency(ctx context.Context, serviceID, dependencyID uuid.UUID) error {
-	return s.repo.Delete(ctx, dependencyID)
+func (s *dependencyServiceImpl) RemoveDependency(ctx context.Context, serviceID, dependsOnID uuid.UUID) error {
+	dep, err := s.repo.GetByPair(ctx, serviceID, dependsOnID)
+	if err != nil {
+		return err
+	}
+	return s.repo.Delete(ctx, dep.ID)
 }
 
 func (s *dependencyServiceImpl) GetGraph(ctx context.Context) (*model.DependencyGraph, error) {
