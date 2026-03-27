@@ -475,3 +475,26 @@ func TestGetStats_Error(t *testing.T) {
 	assert.Equal(t, http.StatusInternalServerError, w.Code)
 	mockSvc.AssertExpectations(t)
 }
+
+func TestRegisterAPIRoutes(t *testing.T) {
+	gin.SetMode(gin.TestMode)
+	r := gin.New()
+	api := r.Group("/api/v1")
+	mockSvc := new(MockServiceService)
+	h := NewHandler(mockSvc)
+	h.RegisterAPIRoutes(api)
+
+	stats := &model.ServiceStats{
+		Total:      2,
+		ByStatus:   []model.StatsItem{{Key: "active", Count: 2}},
+		ByCategory: []model.StatsItem{{Key: "DevOps", Count: 2}},
+	}
+	mockSvc.On("GetStats", mock.Anything).Return(stats, nil)
+
+	w := httptest.NewRecorder()
+	req, _ := http.NewRequest(http.MethodGet, "/api/v1/stats", nil)
+	r.ServeHTTP(w, req)
+
+	assert.Equal(t, http.StatusOK, w.Code)
+	mockSvc.AssertExpectations(t)
+}

@@ -576,3 +576,116 @@ func TestGetStats_CategoryScanError(t *testing.T) {
 	assert.Nil(t, stats)
 	assert.NoError(t, mock.ExpectationsWereMet())
 }
+
+func TestGetAll_EmptyResult(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT id, name, description, category, status, created_at, updated_at FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"id", "name", "description", "category", "status", "created_at", "updated_at"}))
+
+	services, err := repo.GetAll(ctx, model.ServiceFilter{})
+	assert.NoError(t, err)
+	assert.Empty(t, services)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+// errResult is a custom driver.Result that returns an error from RowsAffected.
+type errResult struct{}
+
+func (errResult) LastInsertId() (int64, error) { return 0, nil }
+func (errResult) RowsAffected() (int64, error) { return 0, errors.New("rows affected error") }
+
+func TestDelete_RowsAffectedError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+	id := uuid.New()
+
+	mock.ExpectExec(`DELETE FROM services WHERE id`).
+		WithArgs(id).
+		WillReturnResult(errResult{})
+
+	err := repo.Delete(ctx, id)
+	assert.Error(t, err)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_StatusRowsError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(3))
+
+	statusRows := sqlmock.NewRows([]string{"status", "count"}).
+		AddRow("active", 3).
+		RowError(0, errors.New("row iteration error"))
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnRows(statusRows)
+
+	stats, err := repo.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, stats)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_CategoryRowsError(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(3))
+
+	statusRows := sqlmock.NewRows([]string{"status", "count"}).
+		AddRow("active", 3)
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnRows(statusRows)
+
+	catRows := sqlmock.NewRows([]string{"category", "count"}).
+		AddRow("DevOps", 2).
+		RowError(0, errors.New("row iteration error"))
+	mock.ExpectQuery(`SELECT category, COUNT\(\*\) FROM services GROUP BY category`).
+		WillReturnRows(catRows)
+
+	stats, err := repo.GetStats(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, stats)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestGetStats_EmptyStats(t *testing.T) {
+	db, mock := newTestDB(t)
+	defer db.Close()
+
+	repo := NewPostgresServiceRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT COUNT\(\*\) FROM services`).
+		WillReturnRows(sqlmock.NewRows([]string{"count"}).AddRow(0))
+
+	mock.ExpectQuery(`SELECT status, COUNT\(\*\) FROM services GROUP BY status`).
+		WillReturnRows(sqlmock.NewRows([]string{"status", "count"}))
+
+	mock.ExpectQuery(`SELECT category, COUNT\(\*\) FROM services GROUP BY category`).
+		WillReturnRows(sqlmock.NewRows([]string{"category", "count"}))
+
+	stats, err := repo.GetStats(ctx)
+	assert.NoError(t, err)
+	assert.NotNil(t, stats)
+	assert.Equal(t, 0, stats.Total)
+	assert.Empty(t, stats.ByStatus)
+	assert.Empty(t, stats.ByCategory)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}

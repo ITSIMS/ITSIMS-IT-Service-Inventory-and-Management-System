@@ -481,3 +481,56 @@ func TestGetDependencies_ServiceNotFound_Skipped(t *testing.T) {
 	depRepo.AssertExpectations(t)
 	svcRepo.AssertExpectations(t)
 }
+
+func TestGetDependencies_UsedByServiceNotFound_Skipped(t *testing.T) {
+	// Verify that if GetByID fails for a usedBy dep, it's skipped (not an error)
+	depRepo := new(MockDependencyRepository)
+	svcRepo := new(MockServiceRepository)
+	svc := NewDependencyService(depRepo, svcRepo)
+	ctx := context.Background()
+
+	aID := uuid.New()
+	cID := uuid.New()
+
+	depRepo.On("GetByServiceID", ctx, aID).Return([]model.ServiceDependency{}, nil)
+	depRepo.On("GetUsedBy", ctx, aID).Return([]model.ServiceDependency{makeDep(cID, aID)}, nil)
+	svcRepo.On("GetByID", ctx, cID).Return(nil, sql.ErrNoRows)
+
+	result, err := svc.GetDependencies(ctx, aID)
+	assert.NoError(t, err)
+	assert.NotNil(t, result)
+	assert.Len(t, result.UsedBy, 0) // skipped
+	depRepo.AssertExpectations(t)
+	svcRepo.AssertExpectations(t)
+}
+
+func TestAddDependency_NoCycleWithSharedDep(t *testing.T) {
+	// Diamond graph: A->B, A->C, B->D, C->D
+	// Add E->A: hasCycle(from=A, target=E) — DFS visits D twice; second visit hits the visited branch
+	depRepo := new(MockDependencyRepository)
+	svcRepo := new(MockServiceRepository)
+	svc := NewDependencyService(depRepo, svcRepo)
+	ctx := context.Background()
+
+	aID := uuid.New()
+	bID := uuid.New()
+	cID := uuid.New()
+	dID := uuid.New()
+	eID := uuid.New()
+
+	depRepo.On("ExistsByServiceIDAndDependsOnID", ctx, eID, aID).Return(false, nil)
+	depRepo.On("GetAll", ctx).Return([]model.ServiceDependency{
+		makeDep(aID, bID), // A->B
+		makeDep(aID, cID), // A->C
+		makeDep(bID, dID), // B->D
+		makeDep(cID, dID), // C->D  (diamond — D visited twice)
+	}, nil)
+
+	created := &model.ServiceDependency{ID: uuid.New(), ServiceID: eID, DependsOnID: aID, CreatedAt: time.Now()}
+	depRepo.On("Create", ctx, eID, aID).Return(created, nil)
+
+	result, err := svc.AddDependency(ctx, eID, aID)
+	assert.NoError(t, err)
+	assert.NotNil(t, result)
+	depRepo.AssertExpectations(t)
+}

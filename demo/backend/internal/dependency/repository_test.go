@@ -341,3 +341,100 @@ func TestDepRepo_GetAll_ScanError(t *testing.T) {
 	assert.Nil(t, result)
 	assert.NoError(t, mock.ExpectationsWereMet())
 }
+
+func TestDepRepo_GetAll_Empty(t *testing.T) {
+	db, mock := newDepTestDB(t)
+	defer db.Close()
+	repo := NewPostgresDependencyRepository(db)
+	ctx := context.Background()
+
+	mock.ExpectQuery(`SELECT id, service_id, depends_on_id, created_at FROM service_dependencies$`).
+		WillReturnRows(sqlmock.NewRows(depCols))
+
+	result, err := repo.GetAll(ctx)
+	assert.NoError(t, err)
+	assert.Empty(t, result)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestDepRepo_GetAll_RowsError(t *testing.T) {
+	db, mock := newDepTestDB(t)
+	defer db.Close()
+	repo := NewPostgresDependencyRepository(db)
+	ctx := context.Background()
+
+	aID, bID := uuid.New(), uuid.New()
+	d := makeDep(aID, bID)
+	// RowError(0) triggers after the first row is iterated, causing rows.Err() to be non-nil
+	rows := sqlmock.NewRows(depCols).
+		AddRow(d.ID, d.ServiceID, d.DependsOnID, d.CreatedAt).
+		RowError(0, errors.New("row iteration error"))
+	mock.ExpectQuery(`SELECT id, service_id, depends_on_id, created_at FROM service_dependencies$`).
+		WillReturnRows(rows)
+
+	result, err := repo.GetAll(ctx)
+	assert.Error(t, err)
+	assert.Nil(t, result)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestDepRepo_GetByServiceID_ScanError(t *testing.T) {
+	db, mock := newDepTestDB(t)
+	defer db.Close()
+	repo := NewPostgresDependencyRepository(db)
+	ctx := context.Background()
+	svcID := uuid.New()
+
+	rows := sqlmock.NewRows(depCols).AddRow("bad-uuid", "bad-uuid", "bad-uuid", "bad-time")
+	mock.ExpectQuery(`SELECT id, service_id, depends_on_id, created_at FROM service_dependencies WHERE service_id`).
+		WithArgs(svcID).
+		WillReturnRows(rows)
+
+	result, err := repo.GetByServiceID(ctx, svcID)
+	assert.Error(t, err)
+	assert.Nil(t, result)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+func TestDepRepo_GetByServiceID_RowsError(t *testing.T) {
+	db, mock := newDepTestDB(t)
+	defer db.Close()
+	repo := NewPostgresDependencyRepository(db)
+	ctx := context.Background()
+	svcID := uuid.New()
+
+	d := makeDep(svcID, uuid.New())
+	rows := sqlmock.NewRows(depCols).
+		AddRow(d.ID, d.ServiceID, d.DependsOnID, d.CreatedAt).
+		RowError(0, errors.New("row error"))
+	mock.ExpectQuery(`SELECT id, service_id, depends_on_id, created_at FROM service_dependencies WHERE service_id`).
+		WithArgs(svcID).
+		WillReturnRows(rows)
+
+	result, err := repo.GetByServiceID(ctx, svcID)
+	assert.Error(t, err)
+	assert.Nil(t, result)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
+
+// errDepResult is a custom driver.Result that returns an error from RowsAffected.
+type errDepResult struct{}
+
+func (errDepResult) LastInsertId() (int64, error) { return 0, nil }
+func (errDepResult) RowsAffected() (int64, error) { return 0, errors.New("rows affected error") }
+
+func TestDepRepo_Delete_RowsAffectedError(t *testing.T) {
+	db, mock := newDepTestDB(t)
+	defer db.Close()
+	repo := NewPostgresDependencyRepository(db)
+	ctx := context.Background()
+	id := uuid.New()
+
+	mock.ExpectExec(`DELETE FROM service_dependencies WHERE id`).
+		WithArgs(id).
+		WillReturnResult(errDepResult{})
+
+	err := repo.Delete(ctx, id)
+	assert.Error(t, err)
+	assert.NoError(t, mock.ExpectationsWereMet())
+}
